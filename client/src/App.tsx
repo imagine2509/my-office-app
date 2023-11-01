@@ -1,8 +1,12 @@
 import './App.css'
-import { useAppSelector } from './hooks/redux'
+import ResponsiveAppBar from './components/Header/NavBar'
 
 function App() {
-  return <></>
+  return (
+    <>
+      <ResponsiveAppBar />
+    </>
+  )
 }
 
 export default App
