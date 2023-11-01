@@ -1,10 +1,11 @@
 import './App.css'
-import ResponsiveAppBar from './components/Header/NavBar'
+import NavBar from './components/Header/NavBar'
+import Login from './components/pages/Login/Login'
 
 function App() {
   return (
     <>
-      <ResponsiveAppBar />
+      <NavBar />
     </>
   )
 }
