@@ -6,6 +6,7 @@ const {User} = require('../../db/models/');
 const {Token} = require('../../db/models/');
 const sendEmail = require('../../sendEmail');
 const {body,validationResult} = require('express-validator')
+const authCheck = require('../../middleware/authCheck');
 
 router.post('/register',body('email').isEmail(),body('password').isLength({min:6}),async (req, res) => {
     const errors = validationResult(req);
@@ -24,7 +25,8 @@ router.post('/register',body('email').isEmail(),body('password').isLength({min:6
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const activationString = await bcrypt.hash(email, salt);
+        let activationString = await bcrypt.hash(email, salt);
+        activationString = activationString.replace(/[^a-zA-Z0-9]+/g, '');
         const newuser = await User.create({email,password:hashedPassword,activationString})
         sendEmail(
             email,
@@ -137,9 +139,7 @@ router.get('/refresh' , async (req, res) => {
                 message: `Refresh токен не предоставлен`
             });
         }
-        
         const {id,email} = jwt.verify(refreshToken, process.env.JWT_REFRESH);
-        
         const token = await Token.findOne({ where: { refreshToken } })
         if (!token || !email || !id) {
             res.status(401).json({ //401 Unauthorized
@@ -159,6 +159,15 @@ router.get('/refresh' , async (req, res) => {
             refreshToken:newRefreshToken,
             accessToken:newAccessToken,
             message: `токены для пользователя с email = ${userToRefresh.email} обновлены`});
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+})
+
+router.get('/example' , authCheck , async (req, res) => {
+    try {
+        const allUsers = await User.findAll()
+    return res.json(allUsers)
     } catch (e) {
         res.status(500).send(e.message);
     }
