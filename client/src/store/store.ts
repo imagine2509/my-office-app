@@ -9,7 +9,7 @@ const rootReducer = () => {
 
 export const setupStore = () => {
     return configureStore({
-        reducer: rootReducer()
+        reducer: rootReducer() // TODO: users: userReducer, nextRed: ...
     })
 }
 

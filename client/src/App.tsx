@@ -1,8 +1,13 @@
 import './App.css'
-import { useAppSelector } from './hooks/redux'
+import NavBar from './components/Header/NavBar'
+import Login from './components/pages/Login/Login'
 
 function App() {
-  return <></>
+  return (
+    <>
+      <NavBar />
+    </>
+  )
 }
 
 export default App
