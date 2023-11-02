@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
   FormControlLabel,
   Checkbox,
@@ -10,14 +9,8 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
-  Modal,
 } from '@mui/material'
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
-
-import { ThemeProvider } from '@mui/material/styles'
-import { mainTheme } from '../../themes/mainTheme'
-import { useState } from 'react'
 
 const style = {
   position: 'absolute',
@@ -32,7 +25,6 @@ const style = {
 }
 
 export default function Login() {
-  // handle form submit. TODO: replace console.log with actual query to server
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -41,8 +33,6 @@ export default function Login() {
       password: data.get('password'),
     })
   }
-
-  // modal state. TODO: transfer this to RTK actions and navBar
 
   return (
     <Box

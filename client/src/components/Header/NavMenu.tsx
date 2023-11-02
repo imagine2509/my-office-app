@@ -1,22 +1,13 @@
 import {
-  Avatar,
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
   IconButton,
-  Link,
   Menu,
   MenuItem,
   Modal,
-  TextField,
   Typography,
 } from '@mui/material'
-import {
-  Menu as MenuIcon,
-  LockOutlined as LockOutlinedIcon,
-} from '@mui/icons-material'
+import { Menu as MenuIcon } from '@mui/icons-material'
 import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
@@ -24,8 +15,6 @@ import Register from '../pages/Register/Register'
 type MenuProps = {
   burger: boolean
 }
-
-const pages = ['Войти', 'Зарегистрироваться']
 
 const NavMenu = ({ burger }: MenuProps) => {
   const [loginOpen, setLoginOpen] = useState(false)
