@@ -12,13 +12,14 @@ router.post(
 	body('password').isLength({ min: 6 }),
 	async (req, res) => {
 		const errors = validationResult(req);
+		const { email, password } = req.body;
+		console.log(errors, email, password);
 		if (!errors.isEmpty()) {
 			res
 				.status(422)
 				.json({ message: `Недопустимые данные`, errors: errors.array() }); //422 Unprocessable entity
 			return;
 		}
-		const { email, password } = req.body;
 		try {
 			const userExists = await User.findOne({ where: { email } });
 			if (userExists) {
