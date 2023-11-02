@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
+import styles from './styles.module.scss'
 
 export default function Register() {
   const handleSubmit = async (
@@ -26,13 +27,7 @@ export default function Register() {
   }
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}>
+    <Box className={styles.modal}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
