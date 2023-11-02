@@ -14,9 +14,7 @@ router.get('/refresh' , async (req, res) => {
         }
         const {id,email,isActivated} = jwt.verify(refreshToken, process.env.JWT_REFRESH);
         console.log(id,email,isActivated);
-        console.log(refreshToken,'<--- чо ищем');
         const token = await Token.findOne({ where: { refreshToken } })
-        console.log(token,'<--- token');
         if (!token || !email || !id) {
             res.status(401).json({ //401 Unauthorized
                 message: `Refresh токен не прошёл проверку`
