@@ -13,7 +13,6 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		const { email, password } = req.body;
-		console.log(errors, email, password);
 		if (!errors.isEmpty()) {
 			res
 				.status(422)
@@ -38,13 +37,13 @@ router.post(
 				password: hashedPassword,
 				activationString,
 			});
-			sendEmail(
+			/* sendEmail(
 				email,
 				(subject = 'Активация нового пользователя'),
 				(header = 'Reservations:'),
 				(text = 'Для активации перейдите по ссылке'),
 				(link = `${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`)
-			);
+			); */
 			const refreshToken = jwt.sign(
 				{ id: newuser.id, email, isActivated: newuser.isActivated },
 				process.env.JWT_REFRESH,

@@ -43,14 +43,18 @@ const NavMenu = ({ burger }: MenuProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+const email = data.get('email')
+const password = data.get('password')
+
     const res = await fetch('http://localhost:3002/api/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      
+      body: JSON.stringify({email:email,password:password}),
     })
-    const userData = res.json()
+    const userData = await res.json()
     console.log(userData)
   }
 
