@@ -14,7 +14,7 @@ export default function Register() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    const data = Object.fromEntries(new FormData(event.currentTarget))
     const res = await fetch('http://localhost:3000/api/register', {
       method: 'POST',
       headers: {
