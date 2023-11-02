@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
-
 import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
@@ -23,6 +22,7 @@ const NavMenu = ({ burger }: MenuProps) => {
 
   const handleLoginOpen = () => setLoginOpen(true)
   const handleLoginClose = () => setLoginOpen(false)
+
   const handleRegOpen = () => setRegOpen(true)
   const handleRegClose = () => setRegOpen(false)
 
@@ -38,6 +38,21 @@ const NavMenu = ({ burger }: MenuProps) => {
 
   return burger ? (
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+      <Modal
+        open={loginOpen}
+        onClose={handleLoginClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Login />
+      </Modal>
+
+      <Modal
+        open={regOpen}
+        onClose={handleRegClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Register />
+      </Modal>
       <IconButton
         size='large'
         aria-label='account of current user'
@@ -70,25 +85,11 @@ const NavMenu = ({ burger }: MenuProps) => {
             Войти
           </Typography>
         </MenuItem>
-        <Modal
-          open={loginOpen}
-          onClose={handleLoginClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'>
-          <Login />
-        </Modal>
         <MenuItem onClick={handleCloseNavMenu}>
           <Typography onClick={handleRegOpen} textAlign='center'>
-            Регистрация
+            Зарегистрироваться
           </Typography>
         </MenuItem>
-        <Modal
-          open={regOpen}
-          onClose={handleRegClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'>
-          <Register />
-        </Modal>
       </Menu>
     </Box>
   ) : (
@@ -112,7 +113,7 @@ const NavMenu = ({ burger }: MenuProps) => {
         <Login />
       </Modal>
       <Button
-        onClick={handleCloseNavMenu}
+        onClick={handleRegOpen}
         sx={{ my: 2, color: 'white', display: 'block' }}>
         Регистрация
       </Button>
