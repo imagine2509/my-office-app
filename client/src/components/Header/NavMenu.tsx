@@ -36,6 +36,20 @@ const NavMenu = ({ burger }: MenuProps) => {
     setAnchorElNav(null)
   }
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const res = await fetch('http://localhost:3002/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    const userData = res.json()
+    console.log(userData)
+  }
+
   return burger ? (
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
       <Modal

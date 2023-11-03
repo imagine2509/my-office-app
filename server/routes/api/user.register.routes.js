@@ -12,13 +12,13 @@ router.post(
 	body('password').isLength({ min: 6 }),
 	async (req, res) => {
 		const errors = validationResult(req);
+		const { email, password } = req.body;
 		if (!errors.isEmpty()) {
 			res
 				.status(422)
 				.json({ message: `Недопустимые данные`, errors: errors.array() }); //422 Unprocessable entity
 			return;
 		}
-		const { email, password } = req.body;
 		try {
 			const userExists = await User.findOne({ where: { email } });
 			if (userExists) {
@@ -37,13 +37,13 @@ router.post(
 				password: hashedPassword,
 				activationString,
 			});
-			sendEmail(
+			/* sendEmail(
 				email,
 				(subject = 'Активация нового пользователя'),
 				(header = 'Reservations:'),
 				(text = 'Для активации перейдите по ссылке'),
 				(link = `${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`)
-			);
+			); */
 			const refreshToken = jwt.sign(
 				{ id: newuser.id, email, isActivated: newuser.isActivated },
 				process.env.JWT_REFRESH,
