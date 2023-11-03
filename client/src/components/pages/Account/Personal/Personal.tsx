@@ -9,7 +9,14 @@ type Props = {
   companyId: number | null
 }
 
-function Personal({}: Props) {
+function Personal({
+  id = 1,
+  firstName = null,
+  lastName = null,
+  email = 'seva@123.com',
+  officeId = null,
+  companyId = null,
+}: Props) {
   return <div>Personal</div>
 }
 
