@@ -1,11 +1,12 @@
 import './App.css'
 import NavBar from './components/Header/NavBar'
-import Login from './components/pages/Login/Login'
+import ProfileContainer from './components/pages/Account/Container/ProfileContainer'
 
 function App() {
   return (
     <>
       <NavBar />
+      <ProfileContainer />
     </>
   )
 }
