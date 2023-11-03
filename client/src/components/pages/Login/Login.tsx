@@ -12,9 +12,18 @@ import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
 import styles from './styles.module.scss'
 
 export default function Login() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = Object.fromEntries(new FormData(event.currentTarget))
+    const data = Object.fromEntries(new FormData(event.currentTarget)) // TODO: fetch to server
+    const res = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    const userData = await res.json()
+    console.log(userData)
   }
 
   return (
