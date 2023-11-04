@@ -31,7 +31,7 @@ export default function Login() {
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component='h1' variant='h5'>
+      <Typography component='h2' variant='h5'>
         Войти
       </Typography>
       <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

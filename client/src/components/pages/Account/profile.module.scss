@@ -1,0 +1,64 @@
+.profileContainer {
+  margin: 20px;
+  max-width: 100%;
+
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.contactContainer {
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  text-align: center;
+}
+.contactBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.avatarBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.contactText {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  border: 2px solid #000;
+  box-shadow: 24rem;
+  padding: 4rem;
+}
+.officeSelect {
+  margin-top: 5px;
+}
+.bookingsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  text-align: center;
+}
+.bookingCardContainer {
+  justify-content: center;
+}
+.bookingCard {
+  padding: 10px;
+  margin: 10px;
+}
