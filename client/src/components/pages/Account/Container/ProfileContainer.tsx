@@ -1,4 +1,4 @@
-import { Container, ThemeProvider } from '@mui/material'
+import { Container, StyledEngineProvider, ThemeProvider } from '@mui/material'
 
 import styles from '../profile.module.scss'
 import { mainTheme } from '../../../themes/mainTheme'
@@ -16,12 +16,10 @@ const props = {
 
 const ProfileContainer = () => {
   return (
-    <ThemeProvider theme={mainTheme}>
-      <Container className={styles.profileContainer}>
-        <Personal {...props} />
-        <Bookings />
-      </Container>
-    </ThemeProvider>
+    <Container className={styles.profileContainer}>
+      <Personal {...props} />
+      <Bookings />
+    </Container>
   )
 }
 

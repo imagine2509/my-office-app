@@ -8,10 +8,17 @@ import {
   Avatar,
 } from '@mui/material'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const AvatarMenu = () => {
-  const settings = ['Профиль', 'Выйти']
+  const settings = [
+    { name: 'Профиль', link: '/profile' },
+    { name: 'Выйти', link: '/logout' },
+  ]
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+
+  const navigate = useNavigate()
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -19,6 +26,14 @@ const AvatarMenu = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleTabClick = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    newValue: string
+  ) => {
+    event.preventDefault()
+    navigate(newValue)
   }
 
   return (
@@ -44,8 +59,12 @@ const AvatarMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}>
         {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign='center'>{setting}</Typography>
+          <MenuItem key={setting.link} onClick={handleCloseUserMenu}>
+            <Typography
+              onClick={(event) => handleTabClick(event, `${setting.link}`)}
+              textAlign='center'>
+              {setting.name}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>

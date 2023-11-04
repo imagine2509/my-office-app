@@ -11,14 +11,18 @@ import { Menu as MenuIcon } from '@mui/icons-material'
 import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
+import { useNavigate } from 'react-router-dom'
 
 type MenuProps = {
   burger: boolean
 }
 
 const NavMenu = ({ burger }: MenuProps) => {
-  const [loginOpen, setLoginOpen] = useState(false)
-  const [regOpen, setRegOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false) // login modal state
+  const [regOpen, setRegOpen] = useState(false) // registration modal state
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null) // burger state
+
+  const navigate = useNavigate()
 
   const handleLoginOpen = () => setLoginOpen(true)
   const handleLoginClose = () => setLoginOpen(false)
@@ -26,14 +30,20 @@ const NavMenu = ({ burger }: MenuProps) => {
   const handleRegOpen = () => setRegOpen(true)
   const handleRegClose = () => setRegOpen(false)
 
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
+  }
+
+  const handleTabClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newValue: string
+  ) => {
+    event.preventDefault()
+    navigate(newValue)
   }
 
   return burger ? (
@@ -101,7 +111,7 @@ const NavMenu = ({ burger }: MenuProps) => {
         mr: 2,
       }}>
       <Button
-        onClick={handleLoginOpen}
+        onClick={(event) => handleTabClick(event, '/login')}
         sx={{ my: 2, color: 'white', display: 'block' }}>
         Войти
       </Button>
