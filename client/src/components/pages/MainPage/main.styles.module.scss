@@ -1,0 +1,16 @@
+.mainPaper {
+  background-image: url('../../../assets/img/paper.jpg');
+  margin: 4rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .paperContainer {
+    flex-direction: column;
+  }
+
+  .paperBoxHeader .paperBoxBody {
+    position: relative;
+    padding: 3rem;
+  }
+}

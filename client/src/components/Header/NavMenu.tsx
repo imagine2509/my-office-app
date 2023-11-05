@@ -111,7 +111,7 @@ const NavMenu = ({ burger }: MenuProps) => {
         mr: 2,
       }}>
       <Button
-        onClick={(event) => handleTabClick(event, '/login')}
+        onClick={handleLoginOpen}
         sx={{ my: 2, color: 'white', display: 'block' }}>
         Войти
       </Button>
