@@ -37,13 +37,14 @@ router.post(
 				password: hashedPassword,
 				activationString,
 			});
-			/* sendEmail(
+			console.log(newuser);
+			sendEmail(
 				email,
-				(subject = 'Активация нового пользователя'),
-				(header = 'Reservations:'),
-				(text = 'Для активации перейдите по ссылке'),
-				(link = `${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`)
-			); */
+				'Активация нового пользователя',
+				'Reservations:',
+				'Для активации перейдите по ссылке',
+				`${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`
+			);
 			const refreshToken = jwt.sign(
 				{ id: newuser.id, email, isActivated: newuser.isActivated },
 				process.env.JWT_REFRESH,
@@ -54,11 +55,19 @@ router.post(
 				process.env.JWT_ACCESS,
 				{ expiresIn: '1h' }
 			);
-			const newtoken = await Token.create({ userId: newuser.id, refreshToken });
-			res.cookie('refreshToken', refreshToken, {
-				maxAge: 1000 * 60 * 60 * 24 * 7,
-				httpOnly: true,
-			});
+			console.log('++++');
+			// const newtoken = await Token.create({ refreshToken });
+			// console.log(newtoken);
+			// res.cookie('refreshToken', refreshToken, {
+			// 	maxAge: 1000 * 60 * 60 * 24 * 7,
+			// 	httpOnly: true,
+			// });
+			const newtoken = await Token.create({ userId: 10 });
+			console.log(newtoken);
+			// res.cookie('refreshToken', refreshToken, {
+			// 	maxAge: 1000 * 60 * 60 * 24 * 7,
+			// 	httpOnly: true,
+			// });
 			res.status(201).json({
 				// 201 created
 				id: newuser.id,
@@ -69,6 +78,7 @@ router.post(
 				message: `Пользователь с email = ${email} зарегистрирован`,
 			});
 		} catch (e) {
+			console.log(e.message);
 			res.status(500).send(e.message);
 		}
 	}

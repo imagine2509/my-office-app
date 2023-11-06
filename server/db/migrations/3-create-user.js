@@ -21,11 +21,23 @@ module.exports = {
 			password: {
 				type: Sequelize.STRING,
 			},
+			activationString: {
+				type: Sequelize.STRING,
+			},
 			officeId: {
 				type: Sequelize.INTEGER,
 				references: {
 					model: {
 						tableName: 'Offices',
+					},
+					key: 'id',
+				},
+			},
+			companyId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: {
+						tableName: 'Companies',
 					},
 					key: 'id',
 				},
