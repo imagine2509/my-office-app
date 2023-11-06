@@ -39,7 +39,7 @@ const NavMenu = ({ burger }: MenuProps) => {
   }
 
   const handleTabClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     newValue: string
   ) => {
     event.preventDefault()
@@ -91,6 +91,13 @@ const NavMenu = ({ burger }: MenuProps) => {
           display: { xs: 'block', md: 'none' },
         }}>
         <MenuItem onClick={handleCloseNavMenu}>
+          <Typography
+            onClick={(event) => handleTabClick(event, '/rooms')}
+            textAlign='center'>
+            Переговорки
+          </Typography>
+        </MenuItem>
+        <MenuItem onClick={handleCloseNavMenu}>
           <Typography onClick={handleLoginOpen} textAlign='center'>
             Войти
           </Typography>
@@ -110,6 +117,11 @@ const NavMenu = ({ burger }: MenuProps) => {
         justifyContent: 'end',
         mr: 2,
       }}>
+      <Button
+        onClick={(event) => handleTabClick(event, '/rooms')}
+        sx={{ my: 2, color: 'white', display: 'block' }}>
+        Переговорки
+      </Button>
       <Button
         onClick={handleLoginOpen}
         sx={{ my: 2, color: 'white', display: 'block' }}>
