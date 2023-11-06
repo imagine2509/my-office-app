@@ -30,7 +30,7 @@ export default function Register() {
   }
 
   return (
-    <Box className={styles.modal}>
+    <Box className={styles.modal} sx={{ bgcolor: 'background.paper' }}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
