@@ -33,11 +33,11 @@ router.post(
 			let activationString = await bcrypt.hash(email, salt);
 			activationString = activationString.replace(/[^a-zA-Z0-9]+/g, '');
 			const newuser = await User.create({
+				isActivated: false,
 				email,
 				password: hashedPassword,
 				activationString,
 			});
-			console.log(newuser);
 			sendEmail(
 				email,
 				'Активация нового пользователя',
@@ -55,19 +55,11 @@ router.post(
 				process.env.JWT_ACCESS,
 				{ expiresIn: '1h' }
 			);
-			console.log('++++');
-			// const newtoken = await Token.create({ refreshToken });
-			// console.log(newtoken);
-			// res.cookie('refreshToken', refreshToken, {
-			// 	maxAge: 1000 * 60 * 60 * 24 * 7,
-			// 	httpOnly: true,
-			// });
-			const newtoken = await Token.create({ userId: 10 });
-			console.log(newtoken);
-			// res.cookie('refreshToken', refreshToken, {
-			// 	maxAge: 1000 * 60 * 60 * 24 * 7,
-			// 	httpOnly: true,
-			// });
+			const newtoken = await Token.create({ refreshToken });
+			res.cookie('refreshToken', refreshToken, {
+				maxAge: 1000 * 60 * 60 * 24 * 7,
+				httpOnly: true,
+			});
 			res.status(201).json({
 				// 201 created
 				id: newuser.id,

@@ -3,6 +3,8 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('Users', {
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE',
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -46,6 +48,9 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 			isAdmin: {
+				type: Sequelize.BOOLEAN,
+			},
+			isActivated: {
 				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {

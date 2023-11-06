@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
 				through: 'UserRooms',
 				foreignKey: 'userId',
 			});
-			this.hasOne(Token, { foreignKey: 'userId' });
+			this.hasOne(Token, {
+				onDelete: 'cascade',
+				foreignKey: 'userId',
+				hooks: true,
+			});
 		}
 	}
 	User.init(
@@ -26,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 			companyId: DataTypes.INTEGER,
 			birthDate: DataTypes.DATE,
 			isAdmin: DataTypes.BOOLEAN,
+			isActivated: DataTypes.BOOLEAN,
 		},
 		{
 			sequelize,
