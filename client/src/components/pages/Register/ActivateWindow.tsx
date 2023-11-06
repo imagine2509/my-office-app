@@ -3,8 +3,11 @@ import { Button, Container, Typography } from '@mui/material'
 const ActivateWindow = () => {
   const activation = async () => {
     const data = window.location.href
-    const res = await fetch(`${data}`)
-    console.log(res)
+    const res = data.replace('5173', '3002')
+    console.log(data)
+
+    const resData = await fetch(`${res}`)
+    console.log(resData)
   }
   return (
     <>

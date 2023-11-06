@@ -28,7 +28,6 @@ const EditForm = () => {
   }
 
   const handleSubmit = () => {
-    //TODO: change to PUT and add other options
     console.log(office)
   }
 
