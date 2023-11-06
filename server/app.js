@@ -5,6 +5,7 @@ require('@babel/register');
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const serverConfig = require('./config/serverConfig');
 
 // роутеры
@@ -28,6 +29,7 @@ const PORT = process.env.PORT ?? 3001;
 
 // конфигурация приложения
 serverConfig(app);
+app.use(cors());
 
 // маршрутизация приложения
 app.use('/', mainRouter);

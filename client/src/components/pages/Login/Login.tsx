@@ -15,7 +15,7 @@ export default function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget)) // TODO: fetch to server
-    const res = await fetch('http://localhost:3000/api/login', {
+    const res = await fetch('http://localhost:3002/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,11 +27,11 @@ export default function Login() {
   }
 
   return (
-    <Box className={styles.modal} sx={{ bgcolor: 'background.paper' }}>
+    <Box className={styles.modal}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component='h2' variant='h5'>
+      <Typography component='h1' variant='h5'>
         Войти
       </Typography>
       <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

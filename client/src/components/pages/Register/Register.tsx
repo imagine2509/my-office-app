@@ -18,7 +18,9 @@ export default function Register() {
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
-    const res = await fetch('http://localhost:3000/api/register', {
+    console.log(data)
+
+    const res = await fetch('http://localhost:3002/api/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,11 +32,11 @@ export default function Register() {
   }
 
   return (
-    <Box className={styles.modal} sx={{ bgcolor: 'background.paper' }}>
+    <Box className={styles.modal}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component='h2' variant='h5'>
+      <Typography component='h1' variant='h5'>
         Зарегистрироваться
       </Typography>
       <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>

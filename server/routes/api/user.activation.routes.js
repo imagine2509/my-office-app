@@ -4,6 +4,7 @@ const { User } = require('../../db/models');
 
 router.get('/activate/:link', async (req, res) => {
 	activationString = req.params.link;
+	console.log(';;;;;;;;;;;;;');
 	try {
 		const userToActivate = await User.findOne({ where: { activationString } });
 		if (!userToActivate) {
@@ -14,6 +15,7 @@ router.get('/activate/:link', async (req, res) => {
 			return;
 		}
 		userToActivate.isActivated = true;
+		console.log(userToActivate);
 		await userToActivate.save();
 		res
 			.status(302)

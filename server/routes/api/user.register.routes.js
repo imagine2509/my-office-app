@@ -12,13 +12,13 @@ router.post(
 	body('password').isLength({ min: 6 }),
 	async (req, res) => {
 		const errors = validationResult(req);
+		const { email, password } = req.body;
 		if (!errors.isEmpty()) {
 			res
 				.status(422)
 				.json({ message: `Недопустимые данные`, errors: errors.array() }); //422 Unprocessable entity
 			return;
 		}
-		const { email, password } = req.body;
 		try {
 			const userExists = await User.findOne({ where: { email } });
 			if (userExists) {
@@ -33,16 +33,17 @@ router.post(
 			let activationString = await bcrypt.hash(email, salt);
 			activationString = activationString.replace(/[^a-zA-Z0-9]+/g, '');
 			const newuser = await User.create({
+				isActivated: false,
 				email,
 				password: hashedPassword,
 				activationString,
 			});
 			sendEmail(
 				email,
-				(subject = 'Активация нового пользователя'),
-				(header = 'Reservations:'),
-				(text = 'Для активации перейдите по ссылке'),
-				(link = `${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`)
+				'Активация нового пользователя',
+				'Reservations:',
+				'Для активации перейдите по ссылке',
+				`${process.env.API_URL}:${process.env.API_PORT}/api/user/activate/${activationString}`
 			);
 			const refreshToken = jwt.sign(
 				{ id: newuser.id, email, isActivated: newuser.isActivated },
@@ -54,7 +55,7 @@ router.post(
 				process.env.JWT_ACCESS,
 				{ expiresIn: '1h' }
 			);
-			const newtoken = await Token.create({ userId: newuser.id, refreshToken });
+			const newtoken = await Token.create({ refreshToken });
 			res.cookie('refreshToken', refreshToken, {
 				maxAge: 1000 * 60 * 60 * 24 * 7,
 				httpOnly: true,
@@ -69,6 +70,7 @@ router.post(
 				message: `Пользователь с email = ${email} зарегистрирован`,
 			});
 		} catch (e) {
+			console.log(e.message);
 			res.status(500).send(e.message);
 		}
 	}
