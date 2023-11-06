@@ -3,14 +3,8 @@ import { Button, Container, Typography } from '@mui/material'
 const ActivateWindow = () => {
   const activation = async () => {
     const data = window.location.href
-    const res = await fetch('http://localhost:5173/api/user/activate/:link', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-      body: data,
-    })
-    return res.status
+    const res = await fetch(`${data}`)
+    console.log(res)
   }
   return (
     <>
