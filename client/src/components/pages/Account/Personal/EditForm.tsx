@@ -11,15 +11,10 @@ import {
 import { useState } from 'react'
 
 import styles from '../profile.module.scss'
-import { useAppDispatch } from '../../../../hooks/redux'
-import { closeModal } from '../../../../store/reducers/ModalSlice'
 
 const offices = ['Moscow', 'Saint-Peterburg', 'Belgrade']
 
 const EditForm = () => {
-  const dispatch = useAppDispatch()
-  const handleEditClose = () => dispatch(closeModal('edit'))
-
   //   useEffect(() => {    //TODO: add office fetch to DB
   //     return () => {
   //       second
@@ -33,7 +28,7 @@ const EditForm = () => {
   }
 
   const handleSubmit = () => {
-    handleEditClose()
+    console.log(office)
   }
 
   return (
