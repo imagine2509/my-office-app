@@ -11,19 +11,15 @@ import {
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import styles from './styles.module.scss'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
-import { useAppDispatch } from '../../../hooks/redux'
 
 export default function Register() {
-  const dispatch = useAppDispatch()
-  const handleRegClose = () => dispatch(closeModal('reg'))
-  const handleLoginOpen = () => dispatch(openModal('login'))
-
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
+    console.log(data)
+
     const res = await fetch('http://localhost:3002/api/user/register', {
       method: 'POST',
       headers: {
@@ -31,7 +27,8 @@ export default function Register() {
       },
       body: JSON.stringify(data),
     })
-    await res.json()
+    const userData = await res.json()
+    console.log(userData)
   }
 
   return (
@@ -69,20 +66,13 @@ export default function Register() {
         <Button
           type='submit'
           fullWidth
-          onClick={handleRegClose}
           variant='contained'
           sx={{ mt: 3, mb: 2 }}>
           Зарегистрироваться
         </Button>
         <Grid container justifyContent='flex-end'>
           <Grid item>
-            <Link
-              className={styles.link}
-              onClick={() => {
-                handleRegClose()
-                handleLoginOpen()
-              }}
-              variant='body2'>
+            <Link href='/signin' variant='body2'>
               Уже есть аккаунт? Войти
             </Link>
           </Grid>

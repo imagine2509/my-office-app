@@ -10,21 +10,11 @@ import {
 } from '@mui/material'
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
 import styles from './styles.module.scss'
-import { useAppDispatch } from '../../../hooks/redux'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
 
 export default function Login() {
-  const dispatch = useAppDispatch()
-  const handleLoginClose = () => dispatch(closeModal('login'))
-  const handleRegOpen = () => dispatch(openModal('reg'))
-
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log(data)
-
+    const data = Object.fromEntries(new FormData(event.currentTarget)) // TODO: fetch to server
     const res = await fetch('http://localhost:3002/api/user/login', {
       method: 'POST',
       headers: {
@@ -32,7 +22,8 @@ export default function Login() {
       },
       body: JSON.stringify(data),
     })
-    await res.json()
+    const userData = await res.json()
+    console.log(userData)
   }
 
   return (
@@ -67,7 +58,6 @@ export default function Login() {
         <Button
           type='submit'
           fullWidth
-          onClick={handleLoginClose}
           variant='contained'
           sx={{ mt: 3, mb: 2 }}>
           Войти
@@ -79,13 +69,7 @@ export default function Login() {
             </Link>
           </Grid>
           <Grid item>
-            <Link
-              className={styles.link}
-              onClick={() => {
-                handleLoginClose()
-                handleRegOpen()
-              }}
-              variant='body2'>
+            <Link href='/signup' variant='body2'>
               {'Не зарегистрированы? Создать аккаунт'}
             </Link>
           </Grid>
