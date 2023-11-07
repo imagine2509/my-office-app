@@ -10,6 +10,8 @@ import React, { useState } from 'react'
 
 import styles from '../profile.module.scss'
 import EditForm from './EditForm'
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
+import { closeModal, openModal } from '../../../../store/reducers/ModalSlice'
 
 type Props = {
   id: number
@@ -22,10 +24,10 @@ type Props = {
 
 function Personal(props: Props) {
   const { id, firstName, lastName, email, officeId, companyId } = props
-  const [open, setOpen] = useState(false)
-
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const dispatch = useAppDispatch()
+  const editOpen = useAppSelector((state) => state.modals.edit)
+  const handleEditOpen = () => dispatch(openModal('edit'))
+  const handleEditClose = () => dispatch(closeModal('edit'))
 
   return (
     <Container className={styles.contactContainer}>
@@ -41,15 +43,15 @@ function Personal(props: Props) {
         <Typography className={styles.contactText}>E-mail: {email}</Typography>
         <Button
           type='button'
-          onClick={handleOpen}
+          onClick={handleEditOpen}
           fullWidth
           variant='contained'
           sx={{ mt: 3, mb: 2 }}>
           Изменить
         </Button>
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={editOpen}
+          onClose={handleEditClose}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'>
           <EditForm />
