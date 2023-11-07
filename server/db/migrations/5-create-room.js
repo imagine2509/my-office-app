@@ -15,6 +15,15 @@ module.exports = {
 			amount: {
 				type: Sequelize.INTEGER,
 			},
+			video: {
+				type: Sequelize.BOOLEAN,
+			},
+			description: {
+				type: Sequelize.STRING,
+			},
+			photo: {
+				type: Sequelize.STRING,
+			},
 			officeId: {
 				type: Sequelize.INTEGER,
 				references: {
@@ -23,6 +32,7 @@ module.exports = {
 					},
 					key: 'id',
 				},
+				onDelete: 'CASCADE',
 			},
 			createdAt: {
 				allowNull: false,

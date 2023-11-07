@@ -18,7 +18,8 @@ const refreshRoute = require('./routes/api/user.tokenRefresh.routes');
 const getAllRoute = require('./routes/api/user.getAll.routes');
 const mainRouter = require('./routes/views/main.routes');
 const usersRouter = require('./routes/views/users.routes');
-
+const officeRouter = require('./routes/api/office.routes')
+const roomRouter = require('./routes/api/room.routes')
 const errorHandler = require('./middleware/errorHandler');
 
 // инициализация приложения 'app'
@@ -41,6 +42,8 @@ app.use('/api/user/', registerRoute);
 app.use('/api/user/', refreshRoute);
 app.use('/api/user/', getAllRoute);
 app.use('/user', usersRouter);
+app.use('/api',officeRouter)
+app.use('/api',roomRouter)
 
 // обработка ошибок из next(error)
 app.use(errorHandler);
