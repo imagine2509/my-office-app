@@ -1,18 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './reducers/UserSlice'
+import ModalSlice from "./reducers/ModalSlice";
 
+const store = configureStore({
+    reducer: {
+        modals: ModalSlice
+    }
+}) 
 
-const rootReducer = () => {
-    return {
-    userReducer
-}}
-
-export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer() // TODO: users: userReducer, nextRed: ...
-    })
-}
-
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
+export default store

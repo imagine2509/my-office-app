@@ -12,24 +12,26 @@ import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import { useNavigate } from 'react-router-dom'
+import { openModal, closeModal } from '../../store/reducers/ModalSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 type MenuProps = {
   burger: boolean
 }
 
 const NavMenu = ({ burger }: MenuProps) => {
-  const [loginOpen, setLoginOpen] = useState(false) // login modal state
-  const [regOpen, setRegOpen] = useState(false) // registration modal state
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null) // burger state
+  const dispatch = useAppDispatch()
+  const loginOpen = useAppSelector((state) => state.modals.login)
+  const regOpen = useAppSelector((state) => state.modals.reg)
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const navigate = useNavigate()
 
-  const handleLoginOpen = () => setLoginOpen(true)
-  const handleLoginClose = () => setLoginOpen(false)
+  const handleLoginOpen = () => dispatch(openModal('login'))
+  const handleLoginClose = () => dispatch(closeModal('login'))
 
-  const handleRegOpen = () => setRegOpen(true)
-  const handleRegClose = () => setRegOpen(false)
-
+  const handleRegOpen = () => dispatch(openModal('reg'))
+  const handleRegClose = () => dispatch(closeModal('reg'))
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
