@@ -52,14 +52,17 @@ router.post('/login', async (req, res) => {
         refreshToken,
       })
     }
-    console.log(refreshToken, '<--- это в куку')
     res.cookie('refreshToken', refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     })
     res.status(200).json({
       id: userExists.id,
+      firstName: userExists.firstName,
+      lastName: userExists.lastName,
       email,
+      officeId: userExists.officeId,
+      companyId: userExists.companyId,
       isActivated: userExists.isActivated,
       refreshToken,
       accessToken,

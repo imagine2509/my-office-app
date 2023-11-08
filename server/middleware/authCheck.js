@@ -20,7 +20,7 @@ module.exports = function ( req, res, next ) {
     } catch ( e ) {
         switch (e.name) {
             case 'TokenExpiredError':
-                res.status(403).json({message: `Не авторизованный доступ. Время жизни access токена закончилось`, error:e});//403 Unauthorized/Inactive
+                res.status(401).json({message: `Не авторизованный доступ. Время жизни access токена закончилось`, error:e});//403 Unauthorized/Inactive
             break;
             case 'JsonWebTokenError':
                 res.status(401).json({message: `Не авторизованный доступ. Access токен не валидный`, error:e});//401 Unauthorized
