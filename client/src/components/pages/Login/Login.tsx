@@ -15,7 +15,8 @@ import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
-  const handleLoginClose = () => dispatch(closeModal('login'))
+  const handleLoginClose = () =>
+    setTimeout(() => dispatch(closeModal('login'), 1000))
   const handleRegOpen = () => dispatch(openModal('reg'))
 
   const handleSubmit = async (
