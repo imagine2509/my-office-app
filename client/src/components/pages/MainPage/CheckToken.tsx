@@ -10,6 +10,7 @@ const CheckUser = () => {
     const checkAccess = async () => {
       const accessToken = localStorage.getItem('accessToken')
       const res = await fetch('http://localhost:3002/api/user/access', {
+        method: 'GET',
         headers: {
           'authorization': `${accessToken}`,
         },
