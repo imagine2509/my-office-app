@@ -1,15 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from './reducers/UserSlice'
+import { officeAPI } from "../hooks/officeService";
 
 
 const rootReducer = () => {
     return {
-    userReducer
+    userReducer,
+    [officeAPI.reducerPath]:officeAPI.reducer
 }}
 
 export const setupStore = () => {
     return configureStore({
-        reducer: rootReducer() // TODO: users: userReducer, nextRed: ...
+        reducer: rootReducer(), // TODO: users: userReducer, nextRed: ...
+        middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(officeAPI.middleware)
     })
 }
 

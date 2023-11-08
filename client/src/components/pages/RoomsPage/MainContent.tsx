@@ -3,8 +3,9 @@ import React from 'react'
 import RoomCard from './RoomCard/RoomCard'
 import styles from './mainContent.styles.module.scss'
 import OfficeMenuItem from './OfficeMenuItem'
+import { officeAPI } from '../../../hooks/officeService'
 
-const demoOffices = [
+/* const demoOffices = [
   {
     id: 1,
     name: 'Главный офис',
@@ -26,7 +27,7 @@ const demoOffices = [
     name: "Офис 'Подмосковье'",
     address: 'г. Наро-Фоминск, ул Профсоюзная, д. 37А, офис 407',
   },
-]
+] */
 
 const demoRooms = [
   {
@@ -117,6 +118,8 @@ const demouser = {
 }
 
 function MainContent() {
+
+  const {data} = officeAPI.useGetAllOfficesQuery('')
   const [expanded, setExpanded] = React.useState<number | false>(false)
   const [selectedOffice, setSelectedOffice] = React.useState<number>(
     demouser.defaulOfficeId

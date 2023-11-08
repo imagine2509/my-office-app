@@ -6,6 +6,11 @@ router.route('/offices').get((req, res) => {
 		.then((allOffices) => res.json(allOffices))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+router.route('/office').get((req, res) => {
+	Office.findAll({ raw: true })
+		.then((allOffices) => res.json(allOffices))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 
 router
 	.route('/office/:id')
