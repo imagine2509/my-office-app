@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
     const checkPassword = await bcrypt.compare(password, userExists.password)
     if (!checkPassword) {
       res.status(401).json({
-        // 401 Unauthorized
+        //401 Unauthorized
         message: 'Неверный пароль',
       })
       return
@@ -64,7 +64,6 @@ router.post('/login', async (req, res) => {
       accessToken,
       message: `Успешный вход пользователя с email = ${email}`,
     })
-    console.log(res.status)
   } catch (e) {
     res.status(500).send(e.message)
   }
