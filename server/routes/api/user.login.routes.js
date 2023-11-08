@@ -52,6 +52,7 @@ router.post('/login', async (req, res) => {
 				refreshToken,
 			});
 		}
+		console.log(refreshToken,'<--- это в куку');
 		res.cookie('refreshToken', refreshToken, {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			httpOnly: true,

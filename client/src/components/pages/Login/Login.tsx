@@ -17,6 +17,7 @@ export default function Login() {
     const data = Object.fromEntries(new FormData(event.currentTarget)) // TODO: fetch to server
     const res = await fetch('http://localhost:3002/api/user/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

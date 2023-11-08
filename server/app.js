@@ -30,7 +30,11 @@ const PORT = process.env.PORT ?? 3001;
 
 // конфигурация приложения
 serverConfig(app);
-app.use(cors());
+const corsOptions = {
+    origin: true,
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 // маршрутизация приложения
 app.use('/', mainRouter);
