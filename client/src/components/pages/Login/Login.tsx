@@ -15,6 +15,7 @@ import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
+
   const handleLoginClose = () =>
     setTimeout(() => dispatch(closeModal('login'), 1000))
   const handleRegOpen = () => dispatch(openModal('reg'))
@@ -24,17 +25,21 @@ export default function Login() {
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log(data)
 
-    const res = await fetch('http://localhost:3002/api/user/login', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    await res.json()
+    try {
+      const res = await fetch('http://localhost:3002/api/user/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      const userData = await res.json()
+      localStorage.setItem('email', `${userData.email}`)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

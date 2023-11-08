@@ -13,7 +13,7 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import { useNavigate } from 'react-router-dom'
 import { openModal, closeModal } from '../../store/reducers/ModalSlice'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppCookie, useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 type MenuProps = {
   burger: boolean
@@ -47,6 +47,10 @@ const NavMenu = ({ burger }: MenuProps) => {
     event.preventDefault()
     navigate(newValue)
   }
+
+  const { getCookie } = useAppCookie('authorized')
+  const cookies = getCookie()
+  console.log(cookies)
 
   return burger ? (
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
@@ -92,23 +96,28 @@ const NavMenu = ({ burger }: MenuProps) => {
         sx={{
           display: { xs: 'block', md: 'none' },
         }}>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography
-            onClick={(event) => handleTabClick(event, '/rooms')}
-            textAlign='center'>
-            Переговорки
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography onClick={handleLoginOpen} textAlign='center'>
-            Войти
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography onClick={handleRegOpen} textAlign='center'>
-            Зарегистрироваться
-          </Typography>
-        </MenuItem>
+        {cookies !== null ? (
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography
+              onClick={(event) => handleTabClick(event, '/rooms')}
+              textAlign='center'>
+              Переговорки
+            </Typography>
+          </MenuItem>
+        ) : (
+          <>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography onClick={handleLoginOpen} textAlign='center'>
+                Войти
+              </Typography>
+            </MenuItem>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography onClick={handleRegOpen} textAlign='center'>
+                Зарегистрироваться
+              </Typography>
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </Box>
   ) : (
@@ -119,34 +128,39 @@ const NavMenu = ({ burger }: MenuProps) => {
         justifyContent: 'end',
         mr: 2,
       }}>
-      <Button
-        onClick={(event) => handleTabClick(event, '/rooms')}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Переговорки
-      </Button>
-      <Button
-        onClick={handleLoginOpen}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Войти
-      </Button>
-      <Modal
-        open={loginOpen}
-        onClose={handleLoginClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'>
-        <Login />
-      </Modal>
-      <Button
-        onClick={handleRegOpen}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Регистрация
-      </Button>
+      {cookies !== null ? (
+        <Button
+          onClick={(event) => handleTabClick(event, '/rooms')}
+          sx={{ my: 2, color: 'white', display: 'block' }}>
+          Переговорки
+        </Button>
+      ) : (
+        <>
+          <Button
+            onClick={handleLoginOpen}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Войти
+          </Button>
+          <Button
+            onClick={handleRegOpen}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Регистрация
+          </Button>
+        </>
+      )}
       <Modal
         open={regOpen}
         onClose={handleRegClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Register />
+      </Modal>
+      <Modal
+        open={loginOpen}
+        onClose={handleLoginClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Login />
       </Modal>
     </Box>
   )

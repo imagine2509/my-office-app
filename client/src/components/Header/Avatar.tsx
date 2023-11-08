@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 const AvatarMenu = () => {
   const settings = [
     { name: 'Профиль', link: '/profile' },
-    { name: 'Выйти', link: '/logout' },
+    { name: 'Выйти', link: '/' },
   ]
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -34,6 +34,12 @@ const AvatarMenu = () => {
   ) => {
     event.preventDefault()
     navigate(newValue)
+  }
+
+  const handleLogout = async () => {
+    await fetch('http://localhost:3002/api/user/logout', {
+      method: 'POST',
+    })
   }
 
   return (
@@ -61,7 +67,11 @@ const AvatarMenu = () => {
         {settings.map((setting) => (
           <MenuItem key={setting.link} onClick={handleCloseUserMenu}>
             <Typography
-              onClick={(event) => handleTabClick(event, `${setting.link}`)}
+              onClick={(event) => {
+                event.currentTarget.textContent === 'Выйти'
+                  ? handleLogout
+                  : handleTabClick(event, `${setting.link}`)
+              }}
               textAlign='center'>
               {setting.name}
             </Typography>
