@@ -1,40 +1,38 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../models/User";
-import { useAppCookie } from "../../hooks/redux";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { User } from '../../models/User'
 
 export type UserState = {
-    user: User
-    isLoading: boolean
-    error: string | null
+  user: User
 }
 
-export type TokenState = Pick<UserState, 'user'>
-
-const initialState: UserState = {
-    user: {
-       refreshToken: ''
+export const initialUserState: UserState = {
+  user: {
+    id: 0,
+    firstName: 'Adam',
+    lastName: 'Jenkins',
+    email: 'test@gmail.com',
+    password: '1',
+    officeId: 0,
+    companyId: 0,
+    isAdmin: false,
+  },
+}
+const userSlice = createSlice({
+  name: 'user',
+  initialState: initialUserState,
+  reducers: {
+    checkUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
-    isLoading: false,
-    error: null
-}
-
-export const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-        getUser: (state: TokenState) => {
-            // const {getCookie} = useAppCookie('refreshToken')
-            const refreshToken = getCookie()
-            state.user.refreshToken = refreshToken
-        },
-        LogoutUser: (state: TokenState) => {
-            const {removeAppCookie} = useAppCookie('refreshToken')
-            removeAppCookie()
-            state.user.refreshToken = ''
-        },
-    }
+    setUser: (state:UserState, action: PayloadAction<User>) => {
+        state.user = action.payload
+    },
+    LogoutUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
+    },
+  },
 })
 
-export const {getUser, LogoutUser} = userSlice.actions
+export const { checkUser, setUser, LogoutUser } = userSlice.actions
 
 export default userSlice.reducer

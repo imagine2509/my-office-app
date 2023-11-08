@@ -9,12 +9,16 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../hooks/redux'
+import { LogoutUser, initialUserState } from '../../store/reducers/UserSlice'
 
 const AvatarMenu = () => {
   const settings = [
     { name: 'Профиль', link: '/profile' },
     { name: 'Выйти', link: '/' },
   ]
+
+  const dispath = useAppDispatch()
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -37,9 +41,17 @@ const AvatarMenu = () => {
   }
 
   const handleLogout = async () => {
-    await fetch('http://localhost:3002/api/user/logout', {
+    const res = await fetch('http://localhost:3002/api/user/logout', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.parse(localStorage.getItem('refreshToken')),
     })
+    if (res.ok) {
+      localStorage.clear()
+      dispath(LogoutUser(initialUserState.user))
+    }
   }
 
   return (

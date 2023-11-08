@@ -13,7 +13,7 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import { useNavigate } from 'react-router-dom'
 import { openModal, closeModal } from '../../store/reducers/ModalSlice'
-import { useAppCookie, useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 type MenuProps = {
   burger: boolean
@@ -23,6 +23,7 @@ const NavMenu = ({ burger }: MenuProps) => {
   const dispatch = useAppDispatch()
   const loginOpen = useAppSelector((state) => state.modals.login)
   const regOpen = useAppSelector((state) => state.modals.reg)
+  const user = useAppSelector((state) => state.users.user)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const navigate = useNavigate()
@@ -47,10 +48,6 @@ const NavMenu = ({ burger }: MenuProps) => {
     event.preventDefault()
     navigate(newValue)
   }
-
-  const { getCookie } = useAppCookie('authorized')
-  const cookies = getCookie()
-  console.log(cookies)
 
   return burger ? (
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
@@ -96,7 +93,7 @@ const NavMenu = ({ burger }: MenuProps) => {
         sx={{
           display: { xs: 'block', md: 'none' },
         }}>
-        {cookies !== null ? (
+        {user.id !== 0 ? (
           <MenuItem onClick={handleCloseNavMenu}>
             <Typography
               onClick={(event) => handleTabClick(event, '/rooms')}
@@ -128,7 +125,7 @@ const NavMenu = ({ burger }: MenuProps) => {
         justifyContent: 'end',
         mr: 2,
       }}>
-      {cookies !== null ? (
+      {user.id !== 0 ? (
         <Button
           onClick={(event) => handleTabClick(event, '/rooms')}
           sx={{ my: 2, color: 'white', display: 'block' }}>

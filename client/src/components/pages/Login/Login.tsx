@@ -12,6 +12,7 @@ import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
 import styles from './styles.module.scss'
 import { useAppDispatch } from '../../../hooks/redux'
 import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { setUser } from '../../../store/reducers/UserSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
@@ -36,7 +37,17 @@ export default function Login() {
         body: JSON.stringify(data),
       })
       const userData = await res.json()
+      console.log(userData)
+
+      localStorage.setItem('refreshToken', `${userData.refreshToken}`)
+      localStorage.setItem('accessToken', `${userData.accessToken}`)
+      localStorage.setItem('firstName', `${userData.firstName}`)
+      localStorage.setItem('lastName', `${userData.lastName}`)
       localStorage.setItem('email', `${userData.email}`)
+      localStorage.setItem('officeId', `${userData.officeId}`)
+      localStorage.setItem('companyId', `${userData.companyId}`)
+      localStorage.setItem('isAdmin', `${userData.isAdmin}`)
+      dispatch(setUser(userData))
     } catch (err) {
       console.log(err)
     }
