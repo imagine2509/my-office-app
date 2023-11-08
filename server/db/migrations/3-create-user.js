@@ -3,8 +3,6 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('Users', {
-			onUpdate: 'CASCADE',
-			onDelete: 'CASCADE',
 			id: {
 				allowNull: false,
 				autoIncrement: true,

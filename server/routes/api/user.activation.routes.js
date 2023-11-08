@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { User } = require('../../db/models');
 
 router.get('/activate/:link', async (req, res) => {
-	activationString = req.params.link;
+	const activationString = req.params.link;
 	console.log(';;;;;;;;;;;;;');
 	try {
 		const userToActivate = await User.findOne({ where: { activationString } });

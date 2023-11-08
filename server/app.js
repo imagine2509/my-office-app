@@ -11,6 +11,7 @@ const serverConfig = require('./config/serverConfig');
 // роутеры
 const apiRouter = require('./routes/api/main.routes');
 const activationRoute = require('./routes/api/user.activation.routes');
+const roomRoute = require('./routes/api/room.routes');
 const loginRoute = require('./routes/api/user.login.routes');
 const logoutRoute = require('./routes/api/user.logout.routes');
 const registerRoute = require('./routes/api/user.register.routes');
@@ -34,6 +35,7 @@ app.use(cors());
 // маршрутизация приложения
 app.use('/', mainRouter);
 app.use('/api', apiRouter);
+app.use('/api', roomRoute);
 app.use('/api/user/', activationRoute);
 app.use('/api/user/', loginRoute);
 app.use('/api/user/', logoutRoute);
