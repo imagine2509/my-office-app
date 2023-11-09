@@ -38,7 +38,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // маршрутизация приложения
-app.use('/', mainRouter)
+//app.use('/', mainRouter);
 app.use('/api', apiRouter)
 app.use('/api/user/', activationRoute)
 app.use('/api/user/', loginRoute)

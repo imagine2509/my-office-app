@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:5173/",
   "name": "node-express-sequelize-skeleton",
   "version": "2.0.0",
   "description": "",
