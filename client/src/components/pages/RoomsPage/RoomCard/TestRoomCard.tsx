@@ -43,9 +43,9 @@ function TestRoomCard() {
 	return (
 		<div>
 			<div>Все брони для комнаты с ID:{id}</div>
-			{booking.map((date, insex) => {
+			{booking.map((date, index) => {
 				return (
-					<div key={insex}>
+					<div key={index}>
 						<div>
 							<span>
 								Дата брони: {format(new Date(date.startTime), 'MM-dd')}
