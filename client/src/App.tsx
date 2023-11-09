@@ -8,20 +8,20 @@ import ActivateWindow from './components/pages/Register/ActivateWindow'
 import AdminPage from './components/pages/Admin/AdminPage'
 
 function App() {
-  return (
-    <>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<Main />}></Route>
-        <Route path='/profile' element={<ProfileContainer />}></Route>
-        <Route path='/rooms' element={<MainContent />}></Route>
-        <Route
-          path='api/user/activate/:link'
-          element={<ActivateWindow />}></Route>
-        <Route path='/admin' element={<AdminPage />}></Route>
-      </Routes>
-    </>
-  )
+	return (
+		<>
+			<NavBar />
+			<Routes>
+				<Route path='/' element={<Main />}></Route>
+				<Route path='/profile' element={<ProfileContainer />}></Route>
+				<Route path='/rooms' element={<MainContent />}></Route>
+				<Route
+					path='api/user/activate/:link'
+					element={<ActivateWindow />}></Route>
+				<Route path='/admin' element={<AdminPage />}></Route>
+			</Routes>
+		</>
+	)
 }
 
-export default App
+export default App;

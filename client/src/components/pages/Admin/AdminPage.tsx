@@ -42,7 +42,7 @@ const AdminPage = () => {
                         <OfficeMenuItem {...{ ...office, expanded, handleChange, selectedOffice }} />
                     ))
                 }
-                <Button type="button" variant="outlined">Редактировать</Button>
+                <Button type="button" variant="outlined" className={styles.editButton}>Редактировать</Button>
             </Grid>
             <Grid item>
                 <Grid container spacing={2}>
