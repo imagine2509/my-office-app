@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { Office } = require('../../db/models');
 
-router.route('/offices').get((req, res) => {
+router.route('/office').get((req, res) => {
+	console.log('в ручке');
 	Office.findAll({ raw: true })
 		.then((allOffices) => res.json(allOffices))
 		.catch((error) => res.status(500).json({ error: error.message }));
