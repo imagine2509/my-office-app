@@ -8,6 +8,7 @@ import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { mainTheme } from './components/themes/mainTheme.ts'
 import store from './store/store.ts'
 import { CookiesProvider } from 'react-cookie'
+import CheckUser from './components/pages/MainPage/CheckToken.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ThemeProvider theme={mainTheme}>
           <StyledEngineProvider injectFirst>
             <BrowserRouter>
+              <CheckUser />
               <App />
             </BrowserRouter>
           </StyledEngineProvider>

@@ -103,12 +103,12 @@ const NavMenu = ({ burger }: MenuProps) => {
           </MenuItem>
         ) : (
           <>
-            <MenuItem onClick={handleCloseNavMenu}>
+            <MenuItem key={0} onClick={handleCloseNavMenu}>
               <Typography onClick={handleLoginOpen} textAlign='center'>
                 Войти
               </Typography>
             </MenuItem>
-            <MenuItem onClick={handleCloseNavMenu}>
+            <MenuItem key={1} onClick={handleCloseNavMenu}>
               <Typography onClick={handleRegOpen} textAlign='center'>
                 Зарегистрироваться
               </Typography>

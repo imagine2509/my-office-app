@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
 import { useAppDispatch } from '../../../hooks/redux'
-import { checkUser } from '../../../store/reducers/UserSlice'
+import { setUser } from '../../../store/reducers/UserSlice'
 import { User } from '../../../models/User'
 
 const CheckUser = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    
+
     const checkAccess = async () => {
-      
+
       const accessToken = localStorage.getItem('accessToken')
       const res = await fetch('http://localhost:3002/api/user/access', {
         method: 'GET',
@@ -18,10 +18,10 @@ const CheckUser = () => {
         },
       })
       //const status = await res.status
-      
+
       if (res.status === 200) {
         console.log('вызов checkAccess и статус 200');
-        
+
         const userData: User = {
           id: Number(localStorage.getItem('id')),
           firstName: localStorage.getItem('firstName') ?? '',
@@ -32,7 +32,9 @@ const CheckUser = () => {
           companyId: Number(localStorage.getItem('companyId')),
           isAdmin: !!localStorage.getItem('isAdmin'),
         }
-        dispatch(checkUser(userData))
+        console.log(userData);
+
+        dispatch(setUser(userData))
       }
     }
     checkAccess()

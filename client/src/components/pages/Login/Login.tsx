@@ -38,7 +38,7 @@ export default function Login() {
       })
       const userData = await res.json()
       console.log(userData)
-
+      localStorage.setItem('id', `${userData.id}`)
       localStorage.setItem('refreshToken', `${userData.refreshToken}`)
       localStorage.setItem('accessToken', `${userData.accessToken}`)
       localStorage.setItem('firstName', `${userData.firstName}`)

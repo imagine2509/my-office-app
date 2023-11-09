@@ -46,7 +46,7 @@ const AvatarMenu = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.parse(localStorage.getItem('refreshToken')),
+      body: localStorage.getItem('refreshToken'),
     })
     if (res.ok) {
       localStorage.clear()
@@ -79,9 +79,10 @@ const AvatarMenu = () => {
         {settings.map((setting) => (
           <MenuItem key={setting.link} onClick={handleCloseUserMenu}>
             <Typography
+              key={setting.name}
               onClick={(event) => {
                 event.currentTarget.textContent === 'Выйти'
-                  ? handleLogout
+                  ? handleLogout()
                   : handleTabClick(event, `${setting.link}`)
               }}
               textAlign='center'>
