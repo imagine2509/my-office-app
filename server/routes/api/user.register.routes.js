@@ -59,6 +59,8 @@ router.post(
 			res.cookie('refreshToken', refreshToken, {
 				maxAge: 1000 * 60 * 60 * 24 * 7,
 				httpOnly: true,
+				secure: true,
+				sameSite: 'None',
 			});
 			res.status(201).json({
 				// 201 created
