@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { Button, Grid, Typography } from "@mui/material"
 import { useState } from "react"
 import { officeAPI } from "../../../hooks/officeService"
 import { roomAPI } from "../../../hooks/roomService"
@@ -42,6 +42,7 @@ const AdminPage = () => {
                         <OfficeMenuItem {...{ ...office, expanded, handleChange, selectedOffice }} />
                     ))
                 }
+                <Button type="button" variant="outlined">Редактировать</Button>
             </Grid>
             <Grid item>
                 <Grid container spacing={2}>
