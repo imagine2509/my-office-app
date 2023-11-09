@@ -19,20 +19,7 @@ const CheckUser = () => {
       })
       //const status = await res.status
       
-      if (res.status === 200) {
-
-
-          const logoutres = await fetch('http://localhost:3002/api/user/logout', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-            console.log(logoutres,'<-- логаут');
-            
-
-
+      if (res.status === 200) {            
         console.log('вызов checkAccess и статус 200');
         
         const userData: User = {
