@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Room } = require('../../db/models');
 
-router.route('/rooms').get((req, res) => {
+router.route('/room').get((req, res) => {
 	Room.findAll({ raw: true })
 		.then((allRooms) => res.json(allRooms))
 		.catch((error) => res.status(500).json({ error: error.message }));
