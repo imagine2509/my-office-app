@@ -1,23 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 type Booking = {
 	id: number | string;
-	startTime: string;
-	endTime: string;
+	startTime: Date;
+	endTime: Date;
 };
 
+const localizer = momentLocalizer(moment);
+
 function TestRoomCard() {
-	const [booking, setBookings] = useState<Booking[]>([]);
+	const [booking, setBookings] = useState<Booking[]>([
+		{
+			startTime: new Date(),
+			endTime: new Date(),
+			id: 0,
+		},
+	]);
 	const { id } = useParams();
 
 	useEffect(() => {
 		const fetchBookings = async () => {
 			const allBookings = await fetch(`http://localhost:3002/api/room/${id}`);
 			const res = await allBookings.json();
-			console.log(res);
-			setBookings(res);
+			const result = res.map((el: Booking) => {
+				console.log(el);
+
+				el.endTime = new Date(el.endTime);
+				el.startTime = new Date(el.startTime);
+				return el;
+			});
+			setBookings(result);
+			console.log(result);
 		};
 		fetchBookings();
 	}, []);
@@ -25,28 +44,30 @@ function TestRoomCard() {
 		<div>
 			<div>Все брони для комнаты с ID:{id}</div>
 			{booking.map((date, insex) => {
-				console.log(date.startTime.split('T')[1]);
-				console.log(format(new Date(Date.parse(date.startTime)), 'HH-mm'));
-				// const x = format(date);
 				return (
 					<div key={insex}>
 						<div>
 							<span>
-								Дата брони:{' '}
-								{date.startTime.split('T')[0].split('-').reverse().join('.')}
+								Дата брони: {format(new Date(date.startTime), 'MM-dd')}
 							</span>
 							<span>
-								Время брони с{' '}
-								{format(new Date(Date.parse(date.startTime)), 'HH-mm')}
+								Время брони с {format(new Date(date.startTime), 'HH-mm')}
 							</span>
-							<span>
-								{' '}
-								до {format(new Date(Date.parse(date.endTime)), 'HH-mm')}
-							</span>
+							<span> до {format(new Date(date.endTime), 'HH-mm')}</span>
 						</div>
 					</div>
 				);
 			})}
+			<div>
+				<Calendar
+					localizer={localizer}
+					defaultDate={new Date()}
+					events={booking}
+					startAccessor="startTime"
+					endAccessor="endTime"
+					style={{ height: 500 }}
+				/>
+			</div>
 		</div>
 	);
 }
