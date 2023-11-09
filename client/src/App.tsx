@@ -5,6 +5,7 @@ import ProfileContainer from './components/pages/Account/Container/ProfileContai
 import Main from './components/pages/MainPage/Main'
 import MainContent from './components/pages/RoomsPage/MainContent'
 import ActivateWindow from './components/pages/Register/ActivateWindow'
+import AdminPage from './components/pages/Admin/AdminPage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route
           path='api/user/activate/:link'
           element={<ActivateWindow />}></Route>
+        <Route path='/admin' element={<AdminPage />}></Route>
       </Routes>
     </>
   )
