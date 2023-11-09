@@ -7,16 +7,21 @@ const CheckUser = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    
     const checkAccess = async () => {
+      
       const accessToken = localStorage.getItem('accessToken')
       const res = await fetch('http://localhost:3002/api/user/access', {
         method: 'GET',
         headers: {
-          'authorization': `${accessToken}`,
+          'authorization': `Bearer ${accessToken}`,
         },
       })
-      const status = await res.status
-      if (status === 200) {
+      //const status = await res.status
+      
+      if (res.status === 200) {
+        console.log('вызов checkAccess и статус 200');
+        
         const userData: User = {
           id: Number(localStorage.getItem('id')),
           firstName: localStorage.getItem('firstName') ?? '',

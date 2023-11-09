@@ -3,6 +3,6 @@ require('dotenv').config();
 const router = require('express').Router();
 const authCheck = require('../../middleware/authCheck');
 
-router.get('/access', authCheck, async (req, res) => { res.status(200); });
+router.get('/access', authCheck, async (req, res) => { res.sendStatus(200); });
 
 module.exports = router;
