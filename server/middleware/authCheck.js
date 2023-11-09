@@ -21,7 +21,7 @@ module.exports = function (req, res, next) {
     if (!decoded) {
       return res.status(401).send({
         message:
-          'Не авторизованный доступ. Access токен есть , но мне такой не надо',
+          'Не авторизованный доступ. Access токен есть, но мне такой не надо',
       }) // 401 Unauthorized
     }
     req.user = decoded
