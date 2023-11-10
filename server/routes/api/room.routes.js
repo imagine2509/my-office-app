@@ -26,20 +26,25 @@ router
 
 router.route('/room').post((req, res) => {
   const { name, amount, officeId, video, description, photo } = req.body
-  Room.create({ name, amount, officeId, video, description, photo })
+  Room.create({
+    name,
+    amount,
+    officeId,
+    video,
+    description,
+    photo,
+  })
     .then(
       (newRoom) =>
         newRoom
-          ? res
-              .status(200)
-              .json({
-                id: newRoom.id,
-                name: newRoom.name,
-                description: newRoom.description,
-              })
+          ? res.status(200).json({
+              id: newRoom.id,
+              name: newRoom.name,
+              description: newRoom.description,
+            })
           : res
               .status(409)
-              .json({ message: `failed to create new room with name=${name}` }) //409 conflict
+              .json({ message: `failed to create new room with name=${name}` }) // 409 conflict
     )
     .catch((error) => res.status(500).json({ error: error.message }))
 })
