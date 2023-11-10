@@ -22,7 +22,16 @@ router
 				deletedRoom ? res.json(id) : res.status(404).json(deletedRoom)
 			)
 			.catch((error) => res.status(500).json({ error: error.message }));
-	});
+	})
+	.patch(
+		(req, res) => {
+			const { id } = req.params;
+			Room.update(req.body, { where: { id } })
+				.then((updatedRoom) =>
+					updatedRoom ? res.json(updatedRoom) : res.status(404).json(updatedRoom)
+				)
+				.catch((error) => res.status(500).json({ error: error.message }));
+	})
 
 router.route('/room')
 	.post((req, res) => {
