@@ -1,38 +1,77 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Modal,
+  Typography,
+} from '@mui/material'
 import React from 'react'
-import CheckIcon from '@mui/icons-material/Check';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CheckIcon from '@mui/icons-material/Check'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+import styles from './admin.style.module.scss'
+import EditOffice from './EditModals/EditOffices'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
+import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
 
 interface Props {
-    
-    name: string,
-    address: string,
-    id: number,
-    expanded: number | false,
-    handleChange:  (office: number) => (event: React.SyntheticEvent, isExpanded: boolean) => void,
-    selectedOffice: number,
+  name: string
+  address: string
+  id: number
+  expanded: number | false
+  handleChange: (
+    office: number
+  ) => (event: React.SyntheticEvent, isExpanded: boolean) => void
+  selectedOffice: number
 }
 
-function OfficeMenuItem(props:Props) {
-    const {name, address, id, expanded, handleChange , selectedOffice} = props
+function OfficeMenuItem(props: Props) {
+  const { name, address, id, expanded, handleChange, selectedOffice } = props
 
-    return (
-        <Accordion expanded={expanded === id} onChange={handleChange(id)}>
-        <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`${id} content`}
-        >
-            <Typography >
-                { selectedOffice === id &&
-                <CheckIcon />
-                }
-                {name}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-            <Typography>{address}</Typography>
-        </AccordionDetails>
+  const dispatch = useAppDispatch()
+  const officeEditOpen = useAppSelector((state) => state.modals.editOffice)
+  const handleOfficeEditClose = dispatch(closeModal('editOffice'))
+  const handleOfficeEditOpen = dispatch(openModal('editOffice'))
+
+  return (
+    <Accordion expanded={expanded === id} onChange={handleChange(id)}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`${id} content`}>
+        <Typography>
+          {selectedOffice === id && <CheckIcon />}
+          {name}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>{address}</Typography>
+      </AccordionDetails>
+      <AccordionActions>
+        <Button
+          type='button'
+          variant='outlined'
+          onClick={() => handleOfficeEditOpen}
+          key={`editOffice${id}`}
+          className={styles.editButton}>
+          Редактировать
+        </Button>
+        <Button
+          type='button'
+          variant='outlined'
+          key={`deleteOffice${id}`}
+          className={styles.deleteButton}>
+          Удалить
+        </Button>
+        <Modal
+          open={officeEditOpen}
+          onClose={() => handleOfficeEditClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'>
+          <EditOffice id={id} name={name} address={address} />
+        </Modal>
+      </AccordionActions>
     </Accordion>
-    )
+  )
 }
 
 export default OfficeMenuItem

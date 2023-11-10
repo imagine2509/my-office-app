@@ -18,7 +18,7 @@ export default function Login() {
   const dispatch = useAppDispatch()
 
   const handleLoginClose = () =>
-    setTimeout(() => dispatch(closeModal('login'), 1000))
+    setTimeout(() => dispatch(closeModal('login')), 1000)
   const handleRegOpen = () => dispatch(openModal('reg'))
 
   const handleSubmit = async (

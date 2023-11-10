@@ -6,11 +6,15 @@ export type ModalName =
 | 'reg'
 | 'login'
 | 'edit'
+| 'editOffice'
+| 'editRoom'
 
 const initialState: ModalState = {
 'reg': false,
 'edit': false,
-"login": false
+"login": false,
+"editOffice": false,
+"editRoom": false
 };
 
 
