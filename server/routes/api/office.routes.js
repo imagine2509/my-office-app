@@ -1,8 +1,9 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable max-len */
 const router = require('express').Router()
 const { Office } = require('../../db/models')
 
 router.route('/office').get((req, res) => {
-  console.log('в ручке')
   Office.findAll({ raw: true })
     .then((allOffices) => res.json(allOffices))
     .catch((error) => res.status(500).json({ error: error.message }))
@@ -21,6 +22,16 @@ router
     Office.destroy({ where: { id } })
       .then((deletedOffice) =>
         deletedOffice ? res.json(id) : res.status(404).json(deletedOffice)
+      )
+      .catch((error) => res.status(500).json({ error: error.message }))
+  })
+  .put((req, res) => {
+    const { id } = req.params
+    Office.update(req.body, { where: { id } })
+      .then((updatedOffice) =>
+        updatedOffice
+          ? res.json(updatedOffice)
+          : res.status(404).json(updatedOffice)
       )
       .catch((error) => res.status(500).json({ error: error.message }))
   })

@@ -43,10 +43,7 @@ const AvatarMenu = () => {
   const handleLogout = async () => {
     const res = await fetch('http://localhost:3002/api/user/logout', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: localStorage.getItem('refreshToken'),
+      credentials: 'include',
     })
     if (res.ok) {
       localStorage.clear()
