@@ -17,8 +17,8 @@ import { useAppDispatch } from '../../../hooks/redux'
 export default function Register() {
   const dispatch = useAppDispatch()
   const handleRegClose = () =>
-    setTimeout(() => dispatch(closeModal('reg')), 1000)
-  const handleLoginOpen = () => dispatch(openModal('login'))
+    setTimeout(() => dispatch(closeModal({ modalName: 'reg' })), 1000)
+  const handleLoginOpen = () => dispatch(openModal({ modalName: 'login' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>

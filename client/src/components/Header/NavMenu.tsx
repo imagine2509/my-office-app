@@ -28,11 +28,11 @@ const NavMenu = ({ burger }: MenuProps) => {
 
   const navigate = useNavigate()
 
-  const handleLoginOpen = () => dispatch(openModal('login'))
-  const handleLoginClose = () => dispatch(closeModal('login'))
+  const handleLoginOpen = () => dispatch(openModal({ modalName: 'login' }))
+  const handleLoginClose = () => dispatch(closeModal({ modalName: 'login' }))
 
-  const handleRegOpen = () => dispatch(openModal('reg'))
-  const handleRegClose = () => dispatch(closeModal('reg'))
+  const handleRegOpen = () => dispatch(openModal({ modalName: 'reg' }))
+  const handleRegClose = () => dispatch(closeModal({ modalName: 'reg' }))
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }

@@ -14,19 +14,24 @@ const initialState: ModalState = {
 'edit': false,
 "login": false,
 "editOffice": false,
-"editRoom": false
+"editRoom": false,
 };
+
+type ModalAction = {
+  modalName: ModalName,
+  id? : string | number
+}
 
 
 const modalSlice = createSlice({
  name: 'modal',
  initialState,
  reducers: {
-   openModal: (state: ModalState, action: PayloadAction<ModalName>) => {
-     state[action.payload] = true;
+   openModal: (state: ModalState, action: PayloadAction<ModalAction>) => {
+     state[action.payload.modalName] = true;
    },
-   closeModal: (state: ModalState, action: PayloadAction<ModalName>) => {
-     state[action.payload] = false;
+   closeModal: (state: ModalState, action: PayloadAction<ModalAction>) => {
+     state[action.payload.modalName] = false;
    },
  },
 });

@@ -15,7 +15,10 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
   const dispatch = useAppDispatch()
 
   const handleEditOfficeClose = () =>
-    setTimeout(() => dispatch(closeModal(`editOffice`)), 1000)
+    setTimeout(
+      () => dispatch(closeModal({ modalName: `editOffice`, id })),
+      1000
+    )
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>

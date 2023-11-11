@@ -18,8 +18,8 @@ export default function Login() {
   const dispatch = useAppDispatch()
 
   const handleLoginClose = () =>
-    setTimeout(() => dispatch(closeModal('login')), 1000)
-  const handleRegOpen = () => dispatch(openModal('reg'))
+    setTimeout(() => dispatch(closeModal({ modalName: 'login' })), 1000)
+  const handleRegOpen = () => dispatch(openModal({ modalName: 'reg' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>

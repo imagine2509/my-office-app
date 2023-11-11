@@ -32,8 +32,20 @@ function OfficeMenuItem(props: Props) {
 
   const dispatch = useAppDispatch()
   const officeEditOpen = useAppSelector((state) => state.modals.editOffice)
-  const handleOfficeEditClose = dispatch(closeModal('editOffice'))
-  const handleOfficeEditOpen = dispatch(openModal('editOffice'))
+
+  const handleOfficeEditClose = () => {
+    console.log('Closing modal')
+    const action = closeModal({ modalName: 'editOffice', id })
+    console.log('Dispatching action:', action)
+    dispatch(action)
+  }
+
+  const handleOfficeEditOpen = () => {
+    console.log('Opening modal')
+    const action = openModal({ modalName: 'editOffice', id })
+    console.log('Dispatching action:', action)
+    dispatch(action)
+  }
 
   return (
     <Accordion expanded={expanded === id} onChange={handleChange(id)}>
@@ -50,7 +62,7 @@ function OfficeMenuItem(props: Props) {
         <Button
           type='button'
           variant='outlined'
-          onClick={() => handleOfficeEditOpen}
+          onClick={handleOfficeEditOpen}
           key={`editOffice${id}`}
           className={styles.editButton}>
           Редактировать
@@ -64,7 +76,7 @@ function OfficeMenuItem(props: Props) {
         </Button>
         <Modal
           open={officeEditOpen}
-          onClose={() => handleOfficeEditClose}
+          onClose={handleOfficeEditClose}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'>
           <EditOffice id={id} name={name} address={address} />

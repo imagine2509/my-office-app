@@ -1,11 +1,11 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
-import { officeAPI } from '../../../hooks/officeService'
 import { roomAPI } from '../../../hooks/roomService'
 import OfficeMenuItem from './OfficeMenuItem'
 import RoomCard from './RoomCard/RoomCard'
 
 import styles from './admin.style.module.scss'
+import { officeAPI } from '../../../hooks/officeService'
 
 const AdminPage = () => {
   const allOffices = officeAPI.useGetAllOfficesQuery(null)

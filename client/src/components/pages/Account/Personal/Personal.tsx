@@ -6,7 +6,6 @@ import {
   Modal,
   Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
 
 import styles from '../profile.module.scss'
 import EditForm from './EditForm'
@@ -26,8 +25,8 @@ function Personal(props: Props) {
   const { id, firstName, lastName, email, officeId, companyId } = props
   const dispatch = useAppDispatch()
   const editOpen = useAppSelector((state) => state.modals.edit)
-  const handleEditOpen = () => dispatch(openModal('edit'))
-  const handleEditClose = () => dispatch(closeModal('edit'))
+  const handleEditOpen = () => dispatch(openModal({ modalName: 'edit' }))
+  const handleEditClose = () => dispatch(closeModal({ modalName: 'edit' }))
 
   return (
     <Container className={styles.contactContainer}>

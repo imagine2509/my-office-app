@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormHelperText,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -19,7 +18,7 @@ const offices = ['Moscow', 'Saint-Peterburg', 'Belgrade']
 const EditForm = () => {
   const dispatch = useAppDispatch()
   const handleEditClose = () =>
-    setTimeout(() => dispatch(closeModal('edit')), 1000)
+    setTimeout(() => dispatch(closeModal({ modalName: 'edit' })), 1000)
 
   //   useEffect(() => {    //TODO: add office fetch to DB
   //     return () => {
