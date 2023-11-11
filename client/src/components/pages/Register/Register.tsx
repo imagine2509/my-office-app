@@ -11,14 +11,14 @@ import {
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import styles from './styles.module.scss'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../store/reducers/ModalSlice'
 import { useAppDispatch } from '../../../hooks/redux'
 
 export default function Register() {
   const dispatch = useAppDispatch()
   const handleRegClose = () =>
-    setTimeout(() => dispatch(closeModal({ modalName: 'reg' })), 1000)
-  const handleLoginOpen = () => dispatch(openModal({ modalName: 'login' }))
+    setTimeout(() => dispatch(changeModal({ open: null })), 1000)
+  const handleLoginOpen = () => dispatch(changeModal({ open: 'login' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>

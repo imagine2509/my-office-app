@@ -11,14 +11,14 @@ import { useState } from 'react'
 
 import styles from '../profile.module.scss'
 import { useAppDispatch } from '../../../../hooks/redux'
-import { closeModal } from '../../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../../store/reducers/ModalSlice'
 
 const offices = ['Moscow', 'Saint-Peterburg', 'Belgrade']
 
 const EditForm = () => {
   const dispatch = useAppDispatch()
   const handleEditClose = () =>
-    setTimeout(() => dispatch(closeModal({ modalName: 'edit' })), 1000)
+    setTimeout(() => dispatch(changeModal({ open: null })), 1000)
 
   //   useEffect(() => {    //TODO: add office fetch to DB
   //     return () => {

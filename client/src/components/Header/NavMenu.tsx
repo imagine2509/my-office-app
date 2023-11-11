@@ -12,7 +12,7 @@ import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import { useNavigate } from 'react-router-dom'
-import { openModal, closeModal } from '../../store/reducers/ModalSlice'
+import { changeModal } from '../../store/reducers/ModalSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 type MenuProps = {
@@ -21,18 +21,17 @@ type MenuProps = {
 
 const NavMenu = ({ burger }: MenuProps) => {
   const dispatch = useAppDispatch()
-  const loginOpen = useAppSelector((state) => state.modals.login)
-  const regOpen = useAppSelector((state) => state.modals.reg)
+  const loginOpen = useAppSelector((state) => state.modals.open === 'login')
+  const regOpen = useAppSelector((state) => state.modals.open === 'reg')
   const user = useAppSelector((state) => state.users.user)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const navigate = useNavigate()
 
-  const handleLoginOpen = () => dispatch(openModal({ modalName: 'login' }))
-  const handleLoginClose = () => dispatch(closeModal({ modalName: 'login' }))
+  const handleLoginOpen = () => dispatch(changeModal({ open: 'login' }))
+  const handleClose = () => dispatch(changeModal({ open: null }))
 
-  const handleRegOpen = () => dispatch(openModal({ modalName: 'reg' }))
-  const handleRegClose = () => dispatch(closeModal({ modalName: 'reg' }))
+  const handleRegOpen = () => dispatch(changeModal({ open: 'reg' }))
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -53,7 +52,7 @@ const NavMenu = ({ burger }: MenuProps) => {
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
       <Modal
         open={loginOpen}
-        onClose={handleLoginClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Login />
@@ -61,7 +60,7 @@ const NavMenu = ({ burger }: MenuProps) => {
 
       <Modal
         open={regOpen}
-        onClose={handleRegClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Register />
@@ -147,14 +146,14 @@ const NavMenu = ({ burger }: MenuProps) => {
       )}
       <Modal
         open={regOpen}
-        onClose={handleRegClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Register />
       </Modal>
       <Modal
         open={loginOpen}
-        onClose={handleLoginClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Login />

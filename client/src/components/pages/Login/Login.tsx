@@ -11,15 +11,15 @@ import {
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
 import styles from './styles.module.scss'
 import { useAppDispatch } from '../../../hooks/redux'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../store/reducers/ModalSlice'
 import { setUser } from '../../../store/reducers/UserSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
 
   const handleLoginClose = () =>
-    setTimeout(() => dispatch(closeModal({ modalName: 'login' })), 1000)
-  const handleRegOpen = () => dispatch(openModal({ modalName: 'reg' }))
+    setTimeout(() => dispatch(changeModal({ open: 'login' })), 1000)
+  const handleRegOpen = () => dispatch(changeModal({ open: 'reg' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>

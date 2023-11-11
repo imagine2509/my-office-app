@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from './admin.style.module.scss'
 import EditOffice from './EditModals/EditOffices'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../store/reducers/ModalSlice'
 
 interface Props {
   name: string
@@ -31,18 +31,19 @@ function OfficeMenuItem(props: Props) {
   const { name, address, id, expanded, handleChange, selectedOffice } = props
 
   const dispatch = useAppDispatch()
-  const officeEditOpen = useAppSelector((state) => state.modals.editOffice)
+  const officeEditOpen = useAppSelector(
+    (state) => state.modals.open === 'editOffice' && state.modals.id === id
+  )
 
   const handleOfficeEditClose = () => {
-    console.log('Closing modal')
-    const action = closeModal({ modalName: 'editOffice', id })
+    const action = changeModal({ open: null })
     console.log('Dispatching action:', action)
     dispatch(action)
   }
 
-  const handleOfficeEditOpen = () => {
+  const handleOfficeEditOpen = (id: number) => {
     console.log('Opening modal')
-    const action = openModal({ modalName: 'editOffice', id })
+    const action = changeModal({ open: 'editOffice', id })
     console.log('Dispatching action:', action)
     dispatch(action)
   }
@@ -62,7 +63,7 @@ function OfficeMenuItem(props: Props) {
         <Button
           type='button'
           variant='outlined'
-          onClick={handleOfficeEditOpen}
+          onClick={() => handleOfficeEditOpen(id)}
           key={`editOffice${id}`}
           className={styles.editButton}>
           Редактировать
@@ -75,8 +76,9 @@ function OfficeMenuItem(props: Props) {
           Удалить
         </Button>
         <Modal
+          key={id}
           open={officeEditOpen}
-          onClose={handleOfficeEditClose}
+          onClose={() => handleOfficeEditClose()}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'>
           <EditOffice id={id} name={name} address={address} />

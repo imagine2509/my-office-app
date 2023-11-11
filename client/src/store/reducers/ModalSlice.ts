@@ -1,6 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-type ModalState = Record<ModalName, boolean>;
+// type EmptyModalState = {
+//   open: null
+//   id?: null
+// }
+type ModalState = {
+  open: ModalName | null
+  id?: string | number
+}
+
 
 export type ModalName = 
 | 'reg'
@@ -10,32 +18,21 @@ export type ModalName =
 | 'editRoom'
 
 const initialState: ModalState = {
-'reg': false,
-'edit': false,
-"login": false,
-"editOffice": false,
-"editRoom": false,
+  open: null
 };
-
-type ModalAction = {
-  modalName: ModalName,
-  id? : string | number
-}
 
 
 const modalSlice = createSlice({
  name: 'modal',
  initialState,
  reducers: {
-   openModal: (state: ModalState, action: PayloadAction<ModalAction>) => {
-     state[action.payload.modalName] = true;
-   },
-   closeModal: (state: ModalState, action: PayloadAction<ModalAction>) => {
-     state[action.payload.modalName] = false;
-   },
+   changeModal: (state: ModalState, action: PayloadAction<ModalState>) => {
+     state.open = action.payload.open
+     state.id = action.payload.id
+   }
  },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { changeModal } = modalSlice.actions;
 
 export default modalSlice.reducer;

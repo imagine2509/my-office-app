@@ -1,7 +1,7 @@
 import { Box, TextField, Button } from '@mui/material'
 
 import { useAppDispatch } from '../../../../hooks/redux'
-import { closeModal } from '../../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../../store/reducers/ModalSlice'
 
 import styles from '../admin.style.module.scss'
 
@@ -15,10 +15,7 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
   const dispatch = useAppDispatch()
 
   const handleEditOfficeClose = () =>
-    setTimeout(
-      () => dispatch(closeModal({ modalName: `editOffice`, id })),
-      1000
-    )
+    setTimeout(() => dispatch(changeModal({ open: null })), 1000)
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>

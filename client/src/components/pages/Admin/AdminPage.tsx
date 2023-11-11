@@ -39,6 +39,7 @@ const AdminPage = () => {
         {offices.map((office) => (
           <>
             <OfficeMenuItem
+              key={office.id}
               {...{ ...office, expanded, handleChange, selectedOffice }}
             />
           </>

@@ -10,7 +10,7 @@ import {
 import styles from '../profile.module.scss'
 import EditForm from './EditForm'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
-import { closeModal, openModal } from '../../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../../store/reducers/ModalSlice'
 
 type Props = {
   id: number
@@ -24,9 +24,9 @@ type Props = {
 function Personal(props: Props) {
   const { id, firstName, lastName, email, officeId, companyId } = props
   const dispatch = useAppDispatch()
-  const editOpen = useAppSelector((state) => state.modals.edit)
-  const handleEditOpen = () => dispatch(openModal({ modalName: 'edit' }))
-  const handleEditClose = () => dispatch(closeModal({ modalName: 'edit' }))
+  const editOpen = useAppSelector((state) => state.modals.open === 'edit')
+  const handleEditOpen = () => dispatch(changeModal({ open: 'edit' }))
+  const handleEditClose = () => dispatch(changeModal({ open: null }))
 
   return (
     <Container className={styles.contactContainer}>
