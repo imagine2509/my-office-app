@@ -1,11 +1,13 @@
-import TopPaper from './TopPaper'
+import Birthday from './Birthday';
+import TopPaper from './TopPaper';
 
 const Main = () => {
-  return (
-    <>
-      <TopPaper />
-    </>
-  )
-}
+	return (
+		<>
+			<TopPaper />
+			<Birthday />
+		</>
+	);
+};
 
-export default Main
+export default Main;

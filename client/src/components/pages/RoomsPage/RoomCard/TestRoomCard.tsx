@@ -15,6 +15,8 @@ type Booking = {
 const localizer = momentLocalizer(moment);
 
 function TestRoomCard() {
+	console.log('checks');
+
 	const [booking, setBookings] = useState<Booking[]>([
 		{
 			startTime: new Date(),
@@ -36,7 +38,6 @@ function TestRoomCard() {
 				return el;
 			});
 			setBookings(result);
-			console.log(result);
 		};
 		fetchBookings();
 	}, []);
@@ -65,7 +66,7 @@ function TestRoomCard() {
 					events={booking}
 					startAccessor="startTime"
 					endAccessor="endTime"
-					style={{ height: 500 }}
+					style={{ height: 350, width: 700 }}
 				/>
 			</div>
 		</div>
