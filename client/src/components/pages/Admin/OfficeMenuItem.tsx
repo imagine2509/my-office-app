@@ -49,9 +49,7 @@ function OfficeMenuItem(props: Props) {
   }
 
   const handleOfficeEditOpen = (id: number) => {
-    console.log('Opening modal')
     const action = changeModal({ open: 'editOffice', id })
-    console.log('Dispatching action:', action)
     dispatch(action)
   }
 

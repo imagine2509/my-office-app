@@ -14,10 +14,9 @@ type ModalProps = {
 }
 
 const EditOffice = ({ id, name, address }: ModalProps) => {
-
   //для контролируемого ввода
-  const [officeName, setOfficeName] = React.useState(name);
-  const [officeAddress, setOfficeAddress] = React.useState(address);
+  const [officeName, setOfficeName] = React.useState(name)
+  const [officeAddress, setOfficeAddress] = React.useState(address)
   //
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
   const [changeOffice, {}] = officeAPI.useChangeOfficeMutation()
@@ -31,7 +30,11 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault()
-    await changeOffice({name:officeName,address:officeAddress,id} as office)
+    await changeOffice({
+      name: officeName,
+      address: officeAddress,
+      id,
+    } as office)
     allOffices.refetch()
     handleEditOfficeClose()
   }
@@ -53,7 +56,7 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
         name={name}
         autoFocus
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setOfficeName(event.target.value);
+          setOfficeName(event.target.value)
         }}
       />
       <TextField
@@ -65,15 +68,15 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
         label='Адрес'
         id={address}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setOfficeAddress(event.target.value);
+          setOfficeAddress(event.target.value)
         }}
       />
-              <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello World"
-        />
+      <TextField
+        required
+        id='outlined-required'
+        label='Required'
+        defaultValue='Hello World'
+      />
       <Button
         type='submit'
         fullWidth
