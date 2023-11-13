@@ -28,16 +28,22 @@ export const officeAPI = createApi({
       }),
       changeOffice: builder.mutation<office,office>({
         query: (office) => ({
-          url: `/office/${office.id}`,
+          url: `office/${office.id}`,
           method: 'PUT',
           body: office
         })
       }),
-      getOffice: builder.mutation<office, number>({
+/*       getOffice: builder.mutation<office, number>({
         query: (id) => ({
           url: `office/${id}`,
           method: 'GET',
         }),
-      }),
+      }), */
+      getOffice: builder.query<office, number>({
+        query: (id) => ({
+          url: `office/${id}`,
+          method: 'GET',
+        }),
+      })
     }),
   })

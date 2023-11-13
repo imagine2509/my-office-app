@@ -1,9 +1,11 @@
+/* eslint-disable no-empty-pattern */
 import { Box, TextField, Button } from '@mui/material'
 
 import { useAppDispatch } from '../../../../hooks/redux'
 import { changeModal } from '../../../../store/reducers/ModalSlice'
-
+import { office, officeAPI } from '../../../../hooks/officeService'
 import styles from '../admin.style.module.scss'
+import React from 'react'
 
 type ModalProps = {
   id: number
@@ -12,6 +14,14 @@ type ModalProps = {
 }
 
 const EditOffice = ({ id, name, address }: ModalProps) => {
+
+  //для контролируемого ввода
+  const [officeName, setOfficeName] = React.useState(name);
+  const [officeAddress, setOfficeAddress] = React.useState(address);
+  //
+  const allOffices = officeAPI.useGetAllOfficesQuery(null)
+  const [changeOffice, {}] = officeAPI.useChangeOfficeMutation()
+
   const dispatch = useAppDispatch()
 
   const handleEditOfficeClose = () =>
@@ -21,6 +31,9 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault()
+    await changeOffice({name:officeName,address:officeAddress,id} as office)
+    allOffices.refetch()
+    handleEditOfficeClose()
   }
 
   return (
@@ -36,19 +49,31 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
         fullWidth
         id={`${id}`}
         label='Наименование'
-        value={name}
+        value={officeName}
         name={name}
         autoFocus
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setOfficeName(event.target.value);
+        }}
       />
       <TextField
         margin='normal'
         required
         fullWidth
-        value={address}
+        value={officeAddress}
         name={address}
         label='Адрес'
         id={address}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setOfficeAddress(event.target.value);
+        }}
       />
+              <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Hello World"
+        />
       <Button
         type='submit'
         fullWidth

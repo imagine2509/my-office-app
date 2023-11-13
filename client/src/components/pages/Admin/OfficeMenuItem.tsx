@@ -15,6 +15,7 @@ import styles from './admin.style.module.scss'
 import EditOffice from './EditModals/EditOffices'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { changeModal } from '../../../store/reducers/ModalSlice'
+import { officeAPI } from '../../../hooks/officeService'
 
 interface Props {
   name: string
@@ -29,6 +30,12 @@ interface Props {
 
 function OfficeMenuItem(props: Props) {
   const { name, address, id, expanded, handleChange, selectedOffice } = props
+  const [deleteOffice, {}] = officeAPI.useDeleteOfficeMutation()
+  const allOffices = officeAPI.useGetAllOfficesQuery(null)
+  const handleDeleteOffice = async (id: number) => {
+    await deleteOffice(id)
+    allOffices.refetch()
+  }
 
   const dispatch = useAppDispatch()
   const officeEditOpen = useAppSelector(
@@ -71,6 +78,7 @@ function OfficeMenuItem(props: Props) {
         <Button
           type='button'
           variant='outlined'
+          onClick={() => handleDeleteOffice(id)}
           key={`deleteOffice${id}`}
           className={styles.deleteButton}>
           Удалить
