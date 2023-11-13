@@ -44,8 +44,8 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
       component='form'
       onSubmit={handleSubmit}
       noValidate
-      sx={{ mt: 1 }}
-      className={styles.modal}>
+      className={styles.modal}
+      sx={{ mt: 1, bgcolor: 'background.paper' }}>
       <TextField
         margin='normal'
         required
@@ -70,12 +70,6 @@ const EditOffice = ({ id, name, address }: ModalProps) => {
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setOfficeAddress(event.target.value)
         }}
-      />
-      <TextField
-        required
-        id='outlined-required'
-        label='Required'
-        defaultValue='Hello World'
       />
       <Button
         type='submit'
