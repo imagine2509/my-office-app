@@ -6,6 +6,8 @@ import RoomCard from './RoomCard/RoomCard'
 
 import styles from './admin.style.module.scss'
 import { officeAPI } from '../../../hooks/officeService'
+import { useAppSelector } from '../../../hooks/redux'
+import ErrorComponent from '../../Error'
 
 const AdminPage = () => {
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
@@ -25,8 +27,9 @@ const AdminPage = () => {
       setExpanded(isExpanded ? office : false)
       setSelectedOffice(office)
     }
+  const user = useAppSelector((state) => state.users.user)
 
-  return (
+  return user.isAdmin ? (
     <Grid
       container
       direction={'row'}
@@ -76,6 +79,8 @@ const AdminPage = () => {
         </Grid>
       </Grid>
     </Grid>
+  ) : (
+    <ErrorComponent errorText='Вы не администратор' />
   )
 }
 

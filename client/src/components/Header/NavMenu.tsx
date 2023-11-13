@@ -93,13 +93,26 @@ const NavMenu = ({ burger }: MenuProps) => {
           display: { xs: 'block', md: 'none' },
         }}>
         {user.id !== 0 ? (
-          <MenuItem onClick={handleCloseNavMenu}>
-            <Typography
-              onClick={(event) => handleTabClick(event, '/rooms')}
-              textAlign='center'>
-              Переговорки
-            </Typography>
-          </MenuItem>
+          <>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography
+                onClick={(event) => handleTabClick(event, '/rooms')}
+                textAlign='center'>
+                Переговорки
+              </Typography>
+            </MenuItem>
+            {user.isAdmin ? (
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  onClick={(event) => handleTabClick(event, '/admin')}
+                  textAlign='center'>
+                  Переговорки
+                </Typography>
+              </MenuItem>
+            ) : (
+              <></>
+            )}
+          </>
         ) : (
           <>
             <MenuItem key={0} onClick={handleCloseNavMenu}>
@@ -125,11 +138,20 @@ const NavMenu = ({ burger }: MenuProps) => {
         mr: 2,
       }}>
       {user.id !== 0 ? (
-        <Button
-          onClick={(event) => handleTabClick(event, '/rooms')}
-          sx={{ my: 2, color: 'white', display: 'block' }}>
-          Переговорки
-        </Button>
+        <>
+          <Button
+            onClick={(event) => handleTabClick(event, '/rooms')}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Переговорки
+          </Button>
+          {user.isAdmin && (
+            <Button
+              onClick={(event) => handleTabClick(event, '/admin')}
+              sx={{ my: 2, color: 'white', display: 'block' }}>
+              Администрирование
+            </Button>
+          )}
+        </>
       ) : (
         <>
           <Button
