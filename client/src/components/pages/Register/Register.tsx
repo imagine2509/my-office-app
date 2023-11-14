@@ -80,7 +80,6 @@ export default function Register() {
             <Link
               className={styles.link}
               onClick={() => {
-                handleRegClose()
                 handleLoginOpen()
               }}
               variant='body2'>
