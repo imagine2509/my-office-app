@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { format } from 'date-fns';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Box, Button } from '@mui/material';
 
 type Booking = {
 	id: number | string;
@@ -15,7 +20,33 @@ type Booking = {
 const localizer = momentLocalizer(moment);
 
 function TestRoomCard() {
-	console.log('checks');
+	const [currentDate, setCurrentDate] = useState(new Date());
+	const [startTime, setStartTime] = useState();
+	const [endTime, setEndTime] = useState();
+	const { id } = useParams();
+	const userId = localStorage.getItem('id');
+
+	const handleSubmit = async (
+		event: React.FormEvent<HTMLFormElement>
+	): Promise<void> => {
+		event.preventDefault();
+
+		try {
+			const data = { startTime, endTime, id, userId };
+			console.log(data);
+			const res = await fetch(`http://localhost:3002/api/userroom/${id}`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
+			console.log(res);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const [booking, setBookings] = useState<Booking[]>([
 		{
@@ -24,15 +55,16 @@ function TestRoomCard() {
 			id: 0,
 		},
 	]);
-	const { id } = useParams();
 
 	useEffect(() => {
 		const fetchBookings = async () => {
-			const allBookings = await fetch(`http://localhost:3002/api/room/${id}`);
+			const allBookings = await fetch(
+				`http://localhost:3002/api/userroom/${id}`
+			);
 			const res = await allBookings.json();
-			const result = res.map((el: Booking) => {
-				console.log(el);
+			console.log(res);
 
+			const result = res.map((el: Booking) => {
 				el.endTime = new Date(el.endTime);
 				el.startTime = new Date(el.startTime);
 				return el;
@@ -61,6 +93,8 @@ function TestRoomCard() {
 			})}
 			<div>
 				<Calendar
+					date={currentDate}
+					onNavigate={setCurrentDate}
 					localizer={localizer}
 					defaultDate={new Date()}
 					events={booking}
@@ -69,6 +103,25 @@ function TestRoomCard() {
 					style={{ height: 350, width: 700 }}
 				/>
 			</div>
+			<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<DemoContainer components={['TimePicker', 'TimePicker']}>
+						<TimePicker
+							ampm={false}
+							label="Start Time"
+							onAccept={(value) => setStartTime(value.$d)}
+						/>
+						<TimePicker
+							ampm={false}
+							label="End Time"
+							onAccept={(value) => setEndTime(value.$d)}
+						/>
+					</DemoContainer>
+				</LocalizationProvider>
+				<Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+					Забронировать
+				</Button>
+			</Box>
 		</div>
 	);
 }

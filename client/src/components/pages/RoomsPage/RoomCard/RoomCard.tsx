@@ -1,5 +1,4 @@
 import {
-	Box,
 	Button,
 	Card,
 	CardActions,
@@ -11,7 +10,6 @@ import {
 } from '@mui/material';
 import DuoIcon from '@mui/icons-material/Duo';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-import React from 'react';
 import styles from './RoomCard.styles.module.scss';
 import { roomAPI } from '../../../../hooks/roomService';
 import { useNavigate } from 'react-router-dom';
