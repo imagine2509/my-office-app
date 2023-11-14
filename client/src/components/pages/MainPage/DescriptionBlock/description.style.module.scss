@@ -1,0 +1,86 @@
+.descriptionHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .descriptionHeader {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .decriptionHeaderText {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba($color: white, $alpha: 0.6);
+  }
+}
+
+.advantagesMainHeader {
+  text-align: center;
+}
+
+.advantagesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .advantagesBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .advantagesIcon {
+      width: 15vh;
+      height: 15vw;
+    }
+
+    .advantagesHeader {
+      text-align: center;
+    }
+
+    .advantagesText {
+      text-align: center;
+      color: rgba($color: white, $alpha: 0.6);
+    }
+  }
+}
+
+.clientContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: baseline;
+  height: 200px;
+
+  .clientHeader {
+    text-align: center;
+  }
+
+  .clientBlock {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+
+    height: 80%;
+  }
+
+  .clientLogo {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .advantagesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+}

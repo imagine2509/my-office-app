@@ -1,24 +1,22 @@
-const router = require('express').Router();
-const { User } = require('../../db/models');
+const router = require('express').Router()
+const { User } = require('../../db/models')
 // компоненты
 
 // маршрутизация главной страницы
 router.route('/:userId').get(async (req, res) => {
-	const { userId } = req.params;
-	const { companyId } = await User.findOne({
-		where: {
-			id: userId,
-		},
-	});
-	const usersFromCompany = await User.findAll({
-		where: {
-			companyId,
-		},
-		attributes: ['firstName', 'lastName', 'birthDate'],
-	});
+  const { userId } = req.params
+  const { companyId } = await User.findOne({
+    where: {
+      id: userId,
+    },
+  })
+  const usersFromCompany = await User.findAll({
+    where: {
+      companyId,
+    },
+    attributes: ['firstName', 'lastName', 'birthDate'],
+  })
+  res.json(usersFromCompany)
+})
 
-	console.log('Company ID: ', companyId);
-	res.json(usersFromCompany);
-});
-
-module.exports = router;
+module.exports = router

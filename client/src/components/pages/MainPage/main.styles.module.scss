@@ -1,16 +1,27 @@
 .mainPaper {
-  background-image: url('../../../assets/img/paper.jpg');
-  margin: 4rem;
+  position: relative;
+  background-color: grey;
+  color: #fff;
+  margin-bottom: 4rem;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-image: url('/img/paper.jpg');
 
-  .paperContainer {
-    flex-direction: column;
-  }
+  width: 80vw;
+  transform: translateX(15%);
+  margin-top: 10px;
+}
 
-  .paperBoxHeader .paperBoxBody {
-    position: relative;
-    padding: 3rem;
-  }
+.paperBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.paperText {
+  padding-left: 3%;
 }

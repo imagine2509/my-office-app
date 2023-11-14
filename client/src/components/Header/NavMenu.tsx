@@ -106,7 +106,7 @@ const NavMenu = ({ burger }: MenuProps) => {
                 <Typography
                   onClick={(event) => handleTabClick(event, '/admin')}
                   textAlign='center'>
-                  Переговорки
+                  Администрирование
                 </Typography>
               </MenuItem>
             ) : (
