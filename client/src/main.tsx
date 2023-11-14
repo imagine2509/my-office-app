@@ -11,7 +11,6 @@ import { CookiesProvider } from 'react-cookie'
 import CheckUser from './components/pages/MainPage/CheckToken.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
         <ThemeProvider theme={mainTheme}>
@@ -24,5 +23,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </ThemeProvider>
       </Provider>
     </CookiesProvider>
-  </React.StrictMode>
 )

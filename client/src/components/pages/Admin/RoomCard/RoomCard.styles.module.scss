@@ -1,3 +1,15 @@
 .roomCard {
   width: 320px;
 }
+.name {
+  overflow: "hidden";
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 300px;
+}
+.description {
+  overflow: "hidden";
+  height: 80px ;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+}

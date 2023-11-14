@@ -17,7 +17,7 @@ const Logo = ({ xs }: LogoProps) => {
         src={logo}
         alt='Logo'
         sx={{
-          display: { xs: 'none', md: 'flex' },
+          display: { xs: 'none', md: 'flex',xl: 'flex' },
           mr: 1,
           height: 65,
           cursor: 'pointer',

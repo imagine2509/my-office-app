@@ -47,6 +47,10 @@ function RoomCard(props: room) {
     dispatch(action)
   }
 
+  const cardStyle = {
+    height: 20
+}
+
   return (
     <Grid item key={name}>
 
@@ -59,12 +63,12 @@ function RoomCard(props: room) {
           />
         <CardContent>
         <Badge badgeContent={amount} color="primary"   anchorOrigin={{vertical: 'top', horizontal: 'left',}}>
-          <Typography variant='h5'>{name}</Typography>
+          <Typography variant='h5' className={styles.name}>{name}</Typography>
           </Badge>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography variant='body2' color='text.secondary' className={styles.description}>
             {description}
           </Typography>
-        </CardContent>
+          </CardContent>
         
         <CardActions>
           <Grid
