@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
 import { roomAPI } from '../../../hooks/roomService'
 import OfficeMenuItem from './OfficeMenuItem'
@@ -56,22 +56,6 @@ const AdminPage = () => {
                 <Grid item>
                   <Container className={styles.roomContainer}>
                     <RoomCard {...room} />
-                    <Box className={styles.controlButtons}>
-                      <Button
-                        type='button'
-                        key={'edit' + room.officeId}
-                        variant='outlined'
-                        className={styles.editButton}>
-                        Редактировать
-                      </Button>
-                      <Button
-                        type='button'
-                        key={'delete' + room.officeId}
-                        variant='outlined'
-                        className={styles.deleteButton}>
-                        Удалить
-                      </Button>
-                    </Box>
                   </Container>
                 </Grid>
               )
