@@ -7,6 +7,8 @@ import {
   Grid,
   Box,
   Typography,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material'
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -25,6 +27,9 @@ export default function Register() {
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
+    data.isAdminValue = alignment
+    console.log(data)
+
     const res = await fetch('http://localhost:3002/api/user/register', {
       method: 'POST',
       headers: {
@@ -33,6 +38,15 @@ export default function Register() {
       body: JSON.stringify(data),
     })
     await res.json()
+  }
+
+  const [alignment, setAlignment] = React.useState('exist')
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
+    setAlignment(newAlignment)
   }
 
   return (
@@ -50,7 +64,7 @@ export default function Register() {
               required
               fullWidth
               id='email'
-              label='Email Address'
+              label='Эл. почта'
               name='email'
               autoComplete='email'
             />
@@ -60,10 +74,48 @@ export default function Register() {
               required
               fullWidth
               name='password'
-              label='Password'
+              label='Пароль'
               type='password'
               id='password'
               autoComplete='new-password'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name='firstName'
+              label='Имя'
+              id='firstName'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name='lastName'
+              label='Фамилия'
+              id='lastName'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <ToggleButtonGroup
+              color='primary'
+              value={alignment}
+              exclusive
+              onChange={handleChange}
+              aria-label='Platform'>
+              <ToggleButton value='exist'>работник компании</ToggleButton>
+              <ToggleButton value='new'>создатель компании</ToggleButton>
+            </ToggleButtonGroup>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name='company'
+              label='Наименование компании'
+              id='company'
             />
           </Grid>
         </Grid>
