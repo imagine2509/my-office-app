@@ -97,10 +97,18 @@ function TestRoomCard() {
 					onNavigate={setCurrentDate}
 					localizer={localizer}
 					defaultDate={new Date()}
+					messages={{
+						next: 'Следующий',
+						previous: 'Предыдущий',
+						today: 'Сегодня',
+						month: 'Месяц',
+						week: 'Неделя',
+						day: 'День',
+					}}
 					events={booking}
 					startAccessor="startTime"
 					endAccessor="endTime"
-					style={{ height: 350, width: 700 }}
+					style={{ height: 350, width: 1000 }}
 				/>
 			</div>
 			<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -108,12 +116,12 @@ function TestRoomCard() {
 					<DemoContainer components={['TimePicker', 'TimePicker']}>
 						<TimePicker
 							ampm={false}
-							label="Start Time"
+							label="Старт"
 							onAccept={(value) => setStartTime(value.$d)}
 						/>
 						<TimePicker
 							ampm={false}
-							label="End Time"
+							label="Конец"
 							onAccept={(value) => setEndTime(value.$d)}
 						/>
 					</DemoContainer>
