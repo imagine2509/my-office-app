@@ -30,15 +30,7 @@ function MainContent() {
     await deleteOffice(id)
     allOffices.refetch()
   }
-  // Как выбрать офис :
-  // const [getOfficeById, {}] = officeAPI.useGetOfficeQuery();
-  // const handleGetOffice = async (id: number) => {
-  // 	const result = await getOfficeById(id);
-  // 	if ('data' in result) {
-  // 		const oneOffice = result.data;
-  // 		console.log(oneOffice, '<-- это офис =) ');
-  // 	}
-  // };
+
 
   const demoRooms = allRooms.data ?? []
   const userOfficeId =
@@ -61,26 +53,6 @@ function MainContent() {
       sx={{ flexWrap: { sx: 'wrap', sm: 'nowrap' } }}
       className={styles.mainContent}>
       <Grid item className={styles.officeMenu} mr={2} mb={2}>
-        <button
-          onClick={() =>
-            handleAddOffice({
-              address: 'г. Москва, ул. Красная, д. 1',
-              name: 'Офис №1',
-            } as office)
-          }>
-          добавить офис
-        </button>
-        <button
-          onClick={() =>
-            handleChangeOffice({ id: 11, address: 'Жопа мира', name: 'Бутово' })
-          }>
-          изменить офис
-        </button>
-        <button onClick={() => handleDeleteOffice(11)}>удалить офис</button>
-        <button onClick={() => handleGetOffice(1)}>
-          получить офис по айди
-        </button>
-
         <Typography variant='h5' gutterBottom p={1}>
           Выбор офиса:
         </Typography>
