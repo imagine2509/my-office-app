@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 // type EmptyModalState = {
 //   open: null
@@ -9,30 +9,30 @@ type ModalState = {
   id?: string | number
 }
 
-
-export type ModalName = 
-| 'reg'
-| 'login'
-| 'edit'
-| 'editOffice'
-| 'editRoom'
+export type ModalName =
+  | 'reg'
+  | 'login'
+  | 'edit'
+  | 'editOffice'
+  | 'editRoom'
+  | 'createOffice'
+  | 'createRoom'
 
 const initialState: ModalState = {
-  open: null
-};
-
+  open: null,
+}
 
 const modalSlice = createSlice({
- name: 'modal',
- initialState,
- reducers: {
-   changeModal: (state: ModalState, action: PayloadAction<ModalState>) => {
-     state.open = action.payload.open
-     state.id = action.payload.id
-   }
- },
-});
+  name: 'modal',
+  initialState,
+  reducers: {
+    changeModal: (state: ModalState, action: PayloadAction<ModalState>) => {
+      state.open = action.payload.open
+      state.id = action.payload.id
+    },
+  },
+})
 
-export const { changeModal } = modalSlice.actions;
+export const { changeModal } = modalSlice.actions
 
-export default modalSlice.reducer;
+export default modalSlice.reducer
