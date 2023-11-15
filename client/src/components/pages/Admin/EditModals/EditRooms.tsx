@@ -31,8 +31,15 @@ const EditRoom = ({ id, amount, video, description , photo , officeId , name }:r
 
   const allRooms = roomAPI.useGetAllRoomsQuery(null)
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
+
+  const userCompanyId =
+  localStorage.getItem('companyId') != null
+    ? Number(localStorage.getItem('companyId'))
+    : 1
+
   const currentOffices = allOffices.data?.reduce((acc:officeOnlyIdAndName[], office:office) => {
-    acc.push({id:office.id , name:office.name});
+    if (office.companyId === userCompanyId) {
+    acc.push({id:office.id , name:office.name});}
     return acc;
   }, [])
   

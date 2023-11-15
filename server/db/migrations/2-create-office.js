@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -11,22 +12,31 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+      },
+      companyId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Companies',
+          },
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Offices');
-  }
+  },
 };

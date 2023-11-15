@@ -8,35 +8,20 @@ import { useState } from 'react'
 
 function MainContent() {
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
-  const demoOffices = allOffices.data ?? []
-  // Не работает
+  const officesdata:office[] = allOffices.data ?? []
   const allRooms = roomAPI.useGetAllRoomsQuery(null)
 
-  // Как создать новый офис:
-  const [addOffice, {}] = officeAPI.useAddOfficeMutation() //что то типа юзстейта
-  const handleAddOffice = async (newOffice: office) => {
-    await addOffice(newOffice)
-    allOffices.refetch()
-  }
-  // Как изменить офис :
-  const [changeOffice, {}] = officeAPI.useChangeOfficeMutation()
-  const handleChangeOffice = async (office: office) => {
-    await changeOffice(office)
-    allOffices.refetch()
-  }
-  //Как удалить офис :
-  const [deleteOffice, {}] = officeAPI.useDeleteOfficeMutation()
-  const handleDeleteOffice = async (id: number) => {
-    await deleteOffice(id)
-    allOffices.refetch()
-  }
-
-
-  const demoRooms = allRooms.data ?? []
+  const rooms = allRooms.data ?? []
   const userOfficeId =
     localStorage.getItem('officeId') != null
       ? Number(localStorage.getItem('officeId'))
       : 1
+  const userCompanyId =
+    localStorage.getItem('companyId') != null
+      ? Number(localStorage.getItem('companyId'))
+      : 1
+  const offices = officesdata.filter(office => office.companyId === userCompanyId); // от это костыыыыль
+
   const [expanded, setExpanded] = useState<number | false>(false)
   const [selectedOffice, setSelectedOffice] = useState<number>(userOfficeId)
 
@@ -56,7 +41,7 @@ function MainContent() {
         <Typography variant='h5' gutterBottom p={1}>
           Выбор офиса:
         </Typography>
-        {demoOffices.map((office) => (
+        {offices.map((office) => (
           <OfficeMenuItem
             {...{ ...office, expanded, handleChange, selectedOffice }}
           />
@@ -64,7 +49,7 @@ function MainContent() {
       </Grid>
       <Grid item>
         <Grid container spacing={2}>
-          {demoRooms.map(
+          {rooms.map(
             (room) => room.officeId === selectedOffice && <RoomCard {...room} />
           )}
         </Grid>

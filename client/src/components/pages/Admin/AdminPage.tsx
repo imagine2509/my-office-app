@@ -5,20 +5,28 @@ import OfficeMenuItem from './OfficeMenuItem'
 import RoomCard from './RoomCard/RoomCard'
 
 import styles from './admin.style.module.scss'
-import { officeAPI } from '../../../hooks/officeService'
+import { office, officeAPI } from '../../../hooks/officeService'
 import { useAppSelector } from '../../../hooks/redux'
 import ErrorComponent from '../../Error'
 
 const AdminPage = () => {
-  const allOffices = officeAPI.useGetAllOfficesQuery(null)
-  const offices = allOffices.data ?? []
-  const allRooms = roomAPI.useGetAllRoomsQuery(null)
-  const rooms = allRooms.data ?? []
+
   const userOfficeId =
     localStorage.getItem('officeId') != null
       ? Number(localStorage.getItem('officeId'))
       : 1
 
+  const allOffices = officeAPI.useGetAllOfficesQuery(null)
+  const allRooms = roomAPI.useGetAllRoomsQuery(null)
+  const rooms = allRooms.data ?? []
+
+  const userCompanyId =
+  localStorage.getItem('companyId') != null
+    ? Number(localStorage.getItem('companyId'))
+    : 1
+  const officesdata:office[] = allOffices.data ?? []
+  const offices = officesdata.filter(office => office.companyId === userCompanyId); // от это костыыыыль
+  
   const [expanded, setExpanded] = useState<number | false>(false)
   const [selectedOffice, setSelectedOffice] = useState<number>(userOfficeId)
 

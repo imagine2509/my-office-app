@@ -47,10 +47,6 @@ function RoomCard(props: room) {
     dispatch(action)
   }
 
-  const cardStyle = {
-    height: 20
-}
-
   return (
     <Grid item key={name}>
 

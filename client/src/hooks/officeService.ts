@@ -4,6 +4,7 @@ export interface office {
   id: number
   address: string
   name: string
+  companyId: number
 }
 
 export const officeAPI = createApi({
