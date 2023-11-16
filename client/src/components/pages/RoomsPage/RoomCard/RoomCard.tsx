@@ -29,21 +29,7 @@ interface Props {
 function RoomCard(props: Props) {
   const navigate = useNavigate()
 
-  const allRooms = roomAPI.useGetAllRoomsQuery(null)
-
   const { photo, name, description, video, id, amount } = props
-
-  const [changeRoom, {}] = roomAPI.useChangeRoomMutation()
-  const handleChangeRoom = async () => {
-    const description = prompt() || ''
-    await changeRoom({ ...props, description })
-    allRooms.refetch()
-  }
-  const [deleteRoom, {}] = roomAPI.useDeleteRoomMutation()
-  const handleDeleteRoom = async (id: number) => {
-    await deleteRoom(id)
-    allRooms.refetch()
-  }
 
   return (
     <Grid item key={name}>
@@ -86,13 +72,7 @@ function RoomCard(props: Props) {
               </Tooltip>
             )}
             <Button size='small' onClick={() => navigate(`/rooms/${id}`)}>
-              Подробнее
-            </Button>
-            <Button size='small' onClick={() => handleChangeRoom()}>
-              Изменить
-            </Button>
-            <Button size='small' onClick={() => handleDeleteRoom(id)}>
-              Удалить
+              Посмотреть бронирования
             </Button>
           </Grid>
         </CardActions>

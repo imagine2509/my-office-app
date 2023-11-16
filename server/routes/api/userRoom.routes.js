@@ -11,15 +11,15 @@ router
   .route('/:roomId')
   .post((req, res) => {
     try {
-      const { startTime, endTime } = req.body
+      const { startTime, endTime, userId } = req.body
       const { roomId } = req.params
-      // const { userId } = res.localStorage.getItem;
-      UserRoom.create({ startTime, endTime, roomId })
+      UserRoom.create({ startTime, endTime, userId, roomId })
         .then(
           (newUserRoom) =>
             newUserRoom
               ? res.status(200).json({
                   id: newUserRoom.id,
+                  userId: newUserRoom.userId,
                   startTime: newUserRoom.startTime,
                   endTime: newUserRoom.endTime,
                 })

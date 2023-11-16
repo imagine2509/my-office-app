@@ -1,4 +1,4 @@
-import Birthday from './Birthday'
+import Birthday from '../Account/Personal/Birthday'
 import Description from './DescriptionBlock/Description'
 import TopPaper from './TopPaper'
 

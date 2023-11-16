@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useAppSelector } from '../../../hooks/redux'
+import { useAppSelector } from '../../../../hooks/redux'
 
 import {
   Table,

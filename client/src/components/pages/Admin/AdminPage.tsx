@@ -92,13 +92,14 @@ const AdminPage = () => {
           ))}
           <Button
             type='button'
+            className={styles.createOfficeButton}
             variant='outlined'
             onClick={handleOfficeCreateOpen}>
             Создать офис
           </Button>
         </Grid>
         <Grid item>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} className={styles.allRoomsContainer}>
             {rooms.map(
               (room) =>
                 room.officeId === selectedOffice && (
