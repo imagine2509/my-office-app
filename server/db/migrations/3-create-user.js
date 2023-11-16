@@ -53,6 +53,9 @@ module.exports = {
       isActivated: {
         type: Sequelize.BOOLEAN,
       },
+      isApproved: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -61,9 +64,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Users')
   },
-};
+}
