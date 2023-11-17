@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux';
+import { useAppDispatch } from '../../../../../hooks/redux';
 import { getBookings } from '../../../../../store/reducers/BookingSlice';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-
 import dayjs, { Dayjs } from 'dayjs';
 import { setDate } from '../../../../../store/reducers/DateSlice';
 
 const CalendarComponent = () => {
 	const [value, setValue] = useState<Dayjs | null>(dayjs(new Date()));
 	const { id } = useParams();
-	const currentDate = useAppSelector((state) => state.dates);
-
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
