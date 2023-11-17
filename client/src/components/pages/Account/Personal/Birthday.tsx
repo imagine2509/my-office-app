@@ -41,7 +41,7 @@ const Birthday = (): JSX.Element => {
       }
     }
     fetchBirth()
-  }, [])
+  }, [user])
 
   function createData(name: string, birthDate: string): RowData {
     const parsedDate = new Date(birthDate)
