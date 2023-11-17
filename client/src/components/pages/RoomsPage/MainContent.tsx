@@ -5,11 +5,14 @@ import OfficeMenuItem from './OfficeMenuItem'
 import { office, officeAPI } from '../../../hooks/officeService'
 import { roomAPI } from '../../../hooks/roomService'
 import { useState } from 'react'
+import { useAppSelector } from '../../../hooks/redux'
+import ErrorComponent from '../../Error'
 
 function MainContent() {
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
   const officesdata: office[] = allOffices.data ?? []
   const allRooms = roomAPI.useGetAllRoomsQuery(null)
+  const user = useAppSelector((state) => state.users.user)
 
   const rooms = allRooms.data ?? []
   const userOfficeId =
@@ -33,7 +36,7 @@ function MainContent() {
       setSelectedOffice(office)
     }
 
-  return (
+  return user.isApproved ? (
     <>
       <Grid
         container
@@ -64,6 +67,8 @@ function MainContent() {
         </Grid>
       </Grid>
     </>
+  ) : (
+    <ErrorComponent errorText='Вашу учетную запись еще не активировали' />
   )
 }
 

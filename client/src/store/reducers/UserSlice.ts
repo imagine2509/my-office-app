@@ -15,6 +15,8 @@ export const initialUserState: UserState = {
     officeId: 0,
     companyId: 0,
     isAdmin: false,
+    isActivated: false,
+    isApproved: false,
   },
 }
 const userSlice = createSlice({
@@ -24,8 +26,8 @@ const userSlice = createSlice({
     checkUser: (state: UserState, action: PayloadAction<User>) => {
       state.user = action.payload
     },
-    setUser: (state:UserState, action: PayloadAction<User>) => {
-        state.user = action.payload
+    setUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
     LogoutUser: (state: UserState, action: PayloadAction<User>) => {
       state.user = action.payload
