@@ -6,6 +6,7 @@ const { Token, User } = require('../../db/models')
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
+  console.log(req.body);
   try {
     const userExists = await User.findOne({ where: { email } })
     if (!userExists) {
@@ -67,6 +68,7 @@ router.post('/login', async (req, res) => {
       companyId: userExists.companyId,
       isActivated: userExists.isActivated,
       isAdmin: userExists.isAdmin,
+      isApproved: userExists.isApproved,
       refreshToken,
       accessToken,
       message: `Успешный вход пользователя с email = ${email}`,

@@ -7,6 +7,7 @@ import MainContent from './components/pages/RoomsPage/MainContent';
 import ActivateWindow from './components/pages/Register/ActivateWindow';
 import AdminPage from './components/pages/Admin/AdminPage';
 import TestRoomCard from './components/pages/RoomsPage/RoomCard/TestRoomCard';
+import UsersApproval from './components/pages/Admin/UsersApproval';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 					element={<ActivateWindow />}
 				></Route>
 				<Route path="/admin" element={<AdminPage />}></Route>
+				<Route path="/admin/users" element={<UsersApproval />}></Route>
 			</Routes>
 		</>
 	);

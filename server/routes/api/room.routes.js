@@ -39,7 +39,7 @@ router
   .route('/')
   .get(async (req, res) => {
     try {
-      const result = await Room.findAll();
+      const result = await Room.findAll({ order: [['id', 'DESC']] });
       res.json(result);
     } catch (error) {
       console.log(error.message);
