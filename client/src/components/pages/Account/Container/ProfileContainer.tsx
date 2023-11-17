@@ -1,7 +1,6 @@
-import { Container, StyledEngineProvider, ThemeProvider } from '@mui/material'
+import { Container } from '@mui/material'
 
 import styles from '../profile.module.scss'
-import { mainTheme } from '../../../themes/mainTheme'
 import Personal from '../Personal/Personal'
 import Bookings from '../Bookings/Bookings'
 

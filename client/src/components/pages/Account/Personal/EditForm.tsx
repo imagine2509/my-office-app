@@ -21,12 +21,6 @@ const EditForm = () => {
   const handleEditClose = () =>
     setTimeout(() => dispatch(closeModal('edit')), 1000)
 
-  //   useEffect(() => {    //TODO: add office fetch to DB
-  //     return () => {
-  //       second
-  //     }
-  //   }, [])
-
   const [office, setOffice] = useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
