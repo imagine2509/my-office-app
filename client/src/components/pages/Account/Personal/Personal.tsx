@@ -65,7 +65,7 @@ function Personal() {
           onClose={handleEditClose}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'>
-          <EditForm />
+          <EditForm user={user} />
         </Modal>
       </Box>
     </Container>

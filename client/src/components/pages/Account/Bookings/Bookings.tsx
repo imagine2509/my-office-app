@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 
 import styles from '../profile.module.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
 import {
   deleteBooking,
@@ -25,6 +25,8 @@ const Bookings = () => {
   const dispatch = useAppDispatch()
   const bookings = useAppSelector((state) => state.bookings.bookings)
   const userId = useAppSelector((state) => state.users.user.id)
+  const [allRooms, setAllRooms] = useState<room[]>([])
+  //const [getRooms , {}] = roomAPI.useGetRoomCheatMutation(null)
 
   useEffect(() => {
     const getAllBookings = async () => {
@@ -33,6 +35,9 @@ const Bookings = () => {
       )
       const data = await res.json()
       dispatch(getBookings(data))
+      const roomsres = await fetch(`http://localhost:3002/api/room/`)
+      const roomsdata = await roomsres.json()
+      setAllRooms(roomsdata)
     }
     getAllBookings()
   }, [userId, dispatch])
@@ -87,7 +92,8 @@ const Bookings = () => {
                   }`}
                 </Typography>
                 <Typography component='p'>
-                  Переговорка: {booking.roomId}
+                  Переговорка:{' '}
+                  {allRooms.find((room) => room.id === booking.roomId)?.name}
                 </Typography>
                 <Button
                   fullWidth
