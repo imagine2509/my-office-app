@@ -15,6 +15,7 @@ import {
   getBookings,
 } from '../../../../store/reducers/BookingSlice'
 import { Booking } from '../../../../models/Bookings'
+import { room } from '../../../../hooks/roomService'
 
 type parsedDate = {
   date: string
@@ -26,7 +27,6 @@ const Bookings = () => {
   const bookings = useAppSelector((state) => state.bookings.bookings)
   const userId = useAppSelector((state) => state.users.user.id)
   const [allRooms, setAllRooms] = useState<room[]>([])
-  //const [getRooms , {}] = roomAPI.useGetRoomCheatMutation(null)
 
   useEffect(() => {
     const getAllBookings = async () => {

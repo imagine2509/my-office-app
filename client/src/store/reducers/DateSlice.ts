@@ -1,26 +1,26 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import dayjs, { Dayjs } from 'dayjs';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Dayjs } from 'dayjs'
 
 export type DateState = {
-	date: MoreDate;
-};
+  date: MoreDate
+}
 export type MoreDate = {
-	$d: Dayjs | null;
-};
+  $d: string | null
+}
 
 export const initialDateState: DateState = {
-	date: { $d: null },
-};
+  date: { $d: null },
+}
 const dateSlice = createSlice({
-	name: 'date',
-	initialState: initialDateState,
-	reducers: {
-		setDate: (state: DateState, action: PayloadAction<Dayjs | null>) => {
-			state.date = { $d: action.payload ? action.payload.toISOString() : null };
-		},
-	},
-});
+  name: 'date',
+  initialState: initialDateState,
+  reducers: {
+    setDate: (state: DateState, action: PayloadAction<Dayjs | null>) => {
+      state.date = { $d: action.payload ? action.payload.toISOString() : null }
+    },
+  },
+})
 
-export const { setDate } = dateSlice.actions;
+export const { setDate } = dateSlice.actions
 
-export default dateSlice.reducer;
+export default dateSlice.reducer

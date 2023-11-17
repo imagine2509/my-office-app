@@ -24,7 +24,7 @@ interface Props {
   id?: number | undefined
   expanded: number | false
   handleChange: (
-    office: number
+    office: number | undefined
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void
   selectedOffice: number
 }

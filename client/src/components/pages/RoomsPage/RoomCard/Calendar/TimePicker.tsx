@@ -17,7 +17,7 @@ const TimePickers = () => {
 
   const transformDate = (notToday: Date): Date | undefined => {
     if (notToday && currentDate) {
-      let cCurrentDate = new Date(currentDate.toString())
+      const cCurrentDate = new Date(currentDate.toString())
       const resStart = new Date(
         notToday
           .toString()
@@ -71,14 +71,30 @@ const TimePickers = () => {
         <TimePicker
           ampm={false}
           label='Start Time'
-          onAccept={(value) => setStartTime(transformDate(value.$d))}
-          onChange={(value) => setStartTime(transformDate(value.$d))}
+          onAccept={(value: { $d: Date } | null) => {
+            if (value) {
+              setStartTime(transformDate(value.$d))
+            }
+          }}
+          onChange={(value: { $d: Date } | null) => {
+            if (value) {
+              setStartTime(transformDate(value.$d))
+            }
+          }}
         />
         <TimePicker
           ampm={false}
           label='End Time'
-          onAccept={(value) => setEndTime(transformDate(value.$d))}
-          onChange={(value) => setEndTime(transformDate(value.$d))}
+          onAccept={(value: { $d: Date } | null) => {
+            if (value) {
+              setEndTime(transformDate(value.$d))
+            }
+          }}
+          onChange={(value: { $d: Date } | null) => {
+            if (value) {
+              setEndTime(transformDate(value.$d))
+            }
+          }}
         />
         <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
           Забронировать
