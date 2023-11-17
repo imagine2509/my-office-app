@@ -48,6 +48,7 @@ const AvatarMenu = () => {
     if (res.ok) {
       localStorage.clear()
       dispath(LogoutUser(initialUserState.user))
+      navigate('/')
     }
   }
 

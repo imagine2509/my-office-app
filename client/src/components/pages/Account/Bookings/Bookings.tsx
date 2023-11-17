@@ -11,7 +11,6 @@ import styles from '../profile.module.scss'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
 import { getBookings } from '../../../../store/reducers/BookingSlice'
-import { roomAPI } from '../../../../hooks/roomService'
 
 type parsedDate = {
   date: string
@@ -29,10 +28,12 @@ const Bookings = () => {
         `http://localhost:3002/api/userroom//bookings/${userId}`
       )
       const data = await res.json()
+      console.log(data)
+
       dispatch(getBookings(data))
     }
     getAllBookings()
-  }, [])
+  }, [userId, dispatch])
 
   const parseDates = (date: Date): parsedDate => {
     const parsedDate = new Date(date)
