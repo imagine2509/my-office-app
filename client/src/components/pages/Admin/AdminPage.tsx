@@ -11,7 +11,6 @@ import ErrorComponent from '../../Error'
 import { changeModal } from '../../../store/reducers/ModalSlice'
 import CreateOffice from './CreateModals/CreateOffice'
 import CreateRoom from './CreateModals/CreateRoom'
-import UsersApproval from './UsersApproval'
 import { useNavigate } from 'react-router-dom'
 
 const AdminPage = () => {
@@ -101,13 +100,14 @@ const AdminPage = () => {
             Создать офис
           </Button>
           <Button
-              type='button'
-              variant='outlined'
-              onClick={(event) => {
-                event.preventDefault()
-                  navigate('/admin/users')
-              }}>
-              Управление Пользователями
+            type='button'
+            className={styles.createOfficeButton}
+            variant='outlined'
+            onClick={(event) => {
+              event.preventDefault()
+              navigate('/admin/users')
+            }}>
+            Управление Пользователями
           </Button>
         </Grid>
         <Grid item>
@@ -127,6 +127,7 @@ const AdminPage = () => {
             <Button
               type='button'
               variant='outlined'
+              className={styles.createRoomButton}
               onClick={handleRoomCreateOpen}>
               Создать переговорку
             </Button>

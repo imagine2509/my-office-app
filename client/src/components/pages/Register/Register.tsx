@@ -28,6 +28,9 @@ export default function Register() {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
     data.isAdminValue = alignment
+    if (alignment === 'new') {
+      data.isApprovedValue = 'true'
+    }
     console.log(data)
 
     const res = await fetch('http://localhost:3002/api/user/register', {
