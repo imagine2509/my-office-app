@@ -11,7 +11,6 @@ import {
   Switch,
   IconButton,
   Button,
-  Grid,
   Box,
 } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
@@ -43,15 +42,20 @@ function UsersApproval() {
   return (
     <Box className={styles.mainContent}>
       <List
-        sx={{ bgcolor: 'background.paper' }}
-        subheader={<ListSubheader>Активация пользователей</ListSubheader>}>
+        sx={{ bgcolor: 'background.secondary' }}
+        subheader={<ListSubheader>Активация пользователей</ListSubheader>}
+        className={styles.usersList}>
         {users.data?.map((user) => {
           return (
-            <ListItem key={user.id}>
+            <ListItem key={user.id} className={styles.usersListItem}>
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
-              <ListItemText id='email' primary={user.email} />
+              <ListItemText
+                id='email'
+                className={styles.emailItem}
+                primary={user.email}
+              />
               <ListItemText id='name' primary={user.firstName + '  '} />
               <Switch
                 key={user.id}

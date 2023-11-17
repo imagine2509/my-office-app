@@ -1,0 +1,31 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.usersList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  margin-top: 20px;
+  width: 50%;
+
+  .usersListItem {
+    border: 1px solid white;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    .emailItem {
+      width: 20%;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .usersList {
+    width: 100%;
+  }
+}
