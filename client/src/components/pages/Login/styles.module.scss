@@ -14,3 +14,7 @@
 .link {
   cursor: pointer;
 }
+
+.input :-webkit-autofill {
+  box-shadow: none;
+}

@@ -68,6 +68,7 @@ export default function Login() {
           margin='normal'
           required
           fullWidth
+          className={styles.input}
           id='email'
           label='Email Address'
           name='email'
@@ -78,6 +79,7 @@ export default function Login() {
           margin='normal'
           required
           fullWidth
+          className={styles.input}
           name='password'
           label='Password'
           type='password'

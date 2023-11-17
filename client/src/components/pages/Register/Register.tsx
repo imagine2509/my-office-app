@@ -66,6 +66,7 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               id='email'
               label='Эл. почта'
               name='email'
@@ -76,6 +77,7 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               name='password'
               label='Пароль'
               type='password'
@@ -87,6 +89,7 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               name='firstName'
               label='Имя'
               id='firstName'
@@ -96,6 +99,7 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               name='lastName'
               label='Фамилия'
               id='lastName'
@@ -116,6 +120,7 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               name='company'
               label='Наименование компании'
               id='company'
