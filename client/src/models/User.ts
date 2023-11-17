@@ -7,4 +7,6 @@ export type User = {
     officeId: number
     companyId: number
     isAdmin: boolean
+    isActivated: boolean
+    isApproved: boolean
 }

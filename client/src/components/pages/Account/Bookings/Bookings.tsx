@@ -8,10 +8,12 @@ import {
 } from '@mui/material'
 
 import styles from '../profile.module.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
 import { getBookings } from '../../../../store/reducers/BookingSlice'
-import { roomAPI } from '../../../../hooks/roomService'
+import { room, roomAPI } from '../../../../hooks/roomService'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { SerializedError } from '@reduxjs/toolkit'
 
 type parsedDate = {
   date: string
@@ -19,10 +21,15 @@ type parsedDate = {
 }
 
 const Bookings = () => {
+  
   const dispatch = useAppDispatch()
   const bookings = useAppSelector((state) => state.bookings.bookings)
   const userId = useAppSelector((state) => state.users.user.id)
-
+  const [allRooms, setAllRooms] = useState<room[]>([])
+  //const [getRooms , {}] = roomAPI.useGetRoomCheatMutation(null)
+  
+  
+  
   useEffect(() => {
     const getAllBookings = async () => {
       const res = await fetch(
@@ -30,6 +37,11 @@ const Bookings = () => {
       )
       const data = await res.json()
       dispatch(getBookings(data))
+      const roomsres = await fetch(
+        `http://localhost:3002/api/room/`
+      )
+      const roomsdata = await roomsres.json()
+      setAllRooms(roomsdata)
     }
     getAllBookings()
   }, [])
@@ -71,7 +83,9 @@ const Bookings = () => {
                   }`}
                 </Typography>
                 <Typography component='p'>
-                  Переговорка: {booking.roomId}
+                  Переговорка: {
+                  allRooms.find((room) => room.id === booking.roomId)?.name
+                  }
                 </Typography>
                 <Button
                   fullWidth

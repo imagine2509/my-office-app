@@ -15,6 +15,8 @@ export const initialUserState: UserState = {
     officeId: 0,
     companyId: 0,
     isAdmin: false,
+    isActivated: true,
+    isApproved: true,
   },
 }
 const userSlice = createSlice({
@@ -30,9 +32,15 @@ const userSlice = createSlice({
     LogoutUser: (state: UserState, action: PayloadAction<User>) => {
       state.user = action.payload
     },
+    editUser: (state: UserState, action: PayloadAction<Pick<User, "email" | "firstName" | "lastName" | "officeId" >>) => {
+      state.user.email = action.payload.email
+      state.user.firstName = action.payload.firstName
+      state.user.lastName = action.payload.lastName
+      state.user.officeId = action.payload.officeId
+    },
   },
 })
 
-export const { checkUser, setUser, LogoutUser } = userSlice.actions
+export const { checkUser, setUser, LogoutUser , editUser} = userSlice.actions
 
 export default userSlice.reducer
