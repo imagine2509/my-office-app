@@ -37,7 +37,6 @@ export default function Login() {
         body: JSON.stringify(data),
       })
       const userData = await res.json()
-      console.log(userData)
       localStorage.setItem('id', `${userData.id}`)
       localStorage.setItem('refreshToken', `${userData.refreshToken}`)
       localStorage.setItem('accessToken', `${userData.accessToken}`)
@@ -47,6 +46,9 @@ export default function Login() {
       localStorage.setItem('officeId', `${userData.officeId}`)
       localStorage.setItem('companyId', `${userData.companyId}`)
       localStorage.setItem('isAdmin', `${userData.isAdmin}`)
+      localStorage.setItem('isActivated', `${userData.isActivated}`)
+      localStorage.setItem('isApproved', `${userData.isApproved}`)
+
       dispatch(setUser(userData))
     } catch (err) {
       console.log(err)

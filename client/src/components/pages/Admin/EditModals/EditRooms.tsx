@@ -1,19 +1,36 @@
 /* eslint-disable no-empty-pattern */
-import { Box, TextField, Button, Switch, FormControlLabel, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material'
+import {
+  Box,
+  TextField,
+  Button,
+  Switch,
+  FormControlLabel,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+} from '@mui/material'
 import { useAppDispatch } from '../../../../hooks/redux'
 import { changeModal } from '../../../../store/reducers/ModalSlice'
 import { room, roomAPI } from '../../../../hooks/roomService'
 import styles from '../admin.style.module.scss'
 import React from 'react'
-import { officeAPI , office} from '../../../../hooks/officeService'
-
+import { officeAPI, office } from '../../../../hooks/officeService'
 
 type officeOnlyIdAndName = {
-  id: number,
-  name: string ,
+  id: number | undefined
+  name: string
 }
 
-const EditRoom = ({ id, amount, video, description , photo , officeId , name }:room) => {
+const EditRoom = ({
+  id,
+  amount,
+  video,
+  description,
+  photo,
+  officeId,
+  name,
+}: room) => {
   const [roomName, setRoomName] = React.useState(name)
   const [roomAmount, setRoomAmount] = React.useState(amount)
   const [roomVideo, setRoomVideo] = React.useState(video)
@@ -22,29 +39,33 @@ const EditRoom = ({ id, amount, video, description , photo , officeId , name }:r
   const [roomOfficeId, setRoomOfficeId] = React.useState(officeId)
 
   const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRoomVideo(event.target.checked);
-  };
+    setRoomVideo(event.target.checked)
+  }
 
   const handleRoomOfficechange = (event: SelectChangeEvent<number>) => {
-    setRoomOfficeId(Number(event.target.value));
-  };
+    setRoomOfficeId(Number(event.target.value))
+  }
 
   const allRooms = roomAPI.useGetAllRoomsQuery(null)
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
 
   const userCompanyId =
-  localStorage.getItem('companyId') != null
-    ? Number(localStorage.getItem('companyId'))
-    : 1
+    localStorage.getItem('companyId') != null
+      ? Number(localStorage.getItem('companyId'))
+      : 1
 
-  const currentOffices = allOffices.data?.reduce((acc:officeOnlyIdAndName[], office:office) => {
-    if (office.companyId === userCompanyId) {
-    acc.push({id:office.id , name:office.name});}
-    return acc;
-  }, [])
-  
-  const [changeRoom,{}] = roomAPI.useChangeRoomMutation()
-  
+  const currentOffices = allOffices.data?.reduce(
+    (acc: officeOnlyIdAndName[], office: office) => {
+      if (office.companyId === userCompanyId) {
+        acc.push({ id: office.id, name: office.name })
+      }
+      return acc
+    },
+    []
+  )
+
+  const [changeRoom, {}] = roomAPI.useChangeRoomMutation()
+
   const dispatch = useAppDispatch()
 
   const handleEditRoomClose = () =>
@@ -54,13 +75,13 @@ const EditRoom = ({ id, amount, video, description , photo , officeId , name }:r
   ): Promise<void> => {
     e.preventDefault()
     await changeRoom({
-      id:id,
-      amount:roomAmount,
-      video:roomVideo,
-      description:roomDescription,
-      photo:roomPhoto,
-      officeId:roomOfficeId,
-      name:roomName,
+      id: id,
+      amount: roomAmount,
+      video: roomVideo,
+      description: roomDescription,
+      photo: roomPhoto,
+      officeId: roomOfficeId,
+      name: roomName,
     } as room)
     allRooms.refetch()
     handleEditRoomClose()
@@ -110,41 +131,40 @@ const EditRoom = ({ id, amount, video, description , photo , officeId , name }:r
           setRoomPhoto(event.target.value)
         }}
       />
-      <FormControlLabel control={
-      <Switch
-      checked={roomVideo}
-      onChange={handleVideoChange}
-      inputProps={{ 'aria-label': 'controlled' }}
+      <FormControlLabel
+        control={
+          <Switch
+            checked={roomVideo}
+            onChange={handleVideoChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        }
+        label='Видеосвязь'
       />
-      } label="Видеосвязь" />
       <TextField
-      type='number'
-      margin='normal'
-      required
-      fullWidth
-      value={roomAmount}
-      name={photo}
-      label='Вместительность:'
-      id={photo}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        setRoomAmount(Number(event.target.value))
-      }}
+        type='number'
+        margin='normal'
+        required
+        fullWidth
+        value={roomAmount}
+        name={photo}
+        label='Вместительность:'
+        id={photo}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setRoomAmount(Number(event.target.value))
+        }}
       />
-<InputLabel id="officeLabel">В каком офисе находится</InputLabel>
-<Select
-    labelId="officeLabel"
-    id="officeSelect"
-    value={roomOfficeId}
-    label="Офис"
-    onChange={handleRoomOfficechange}
-    >
-    {
-      currentOffices?.map(
-        (office) =>
+      <InputLabel id='officeLabel'>В каком офисе находится</InputLabel>
+      <Select
+        labelId='officeLabel'
+        id='officeSelect'
+        value={roomOfficeId}
+        label='Офис'
+        onChange={handleRoomOfficechange}>
+        {currentOffices?.map((office) => (
           <MenuItem value={office.id}>{office.name}</MenuItem>
-      )
-    }
-  </Select>
+        ))}
+      </Select>
       <Button
         type='submit'
         fullWidth

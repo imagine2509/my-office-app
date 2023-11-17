@@ -38,23 +38,25 @@ router
       .then((allUserRoom) => res.json(allUserRoom))
       .catch((error) => res.status(500).json({ error: error.message }))
   })
-  .delete(async (req, res) => {
-    try {
-      const { roomId } = req.params
-      const response = await UserRoom.destroy({ where: { id: roomId } })
-      if (response) {
-        res.sendStatus(200)
-      }
-    } catch ({ message }) {
-      res.status(500).json({ message })
-    }
-  })
 
 router.route('/bookings/:userId').get((req, res) => {
   const { userId } = req.params
   UserRoom.findAll({ where: { userId }, raw: true })
     .then((allUserRoom) => res.json(allUserRoom))
     .catch((error) => res.status(500).json({ error: error.message }))
+})
+
+router.route('/bookings/:bookingId').delete(async (req, res) => {
+  try {
+    const { bookingId } = req.params
+    const booking = await UserRoom.findOne({ where: { id: bookingId } })
+    const response = await UserRoom.destroy({ where: { id: bookingId } })
+    if (response) {
+      res.status(200).json(booking)
+    }
+  } catch ({ message }) {
+    res.status(500).json({ message })
+  }
 })
 
 module.exports = router

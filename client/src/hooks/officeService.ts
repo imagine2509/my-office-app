@@ -34,12 +34,6 @@ export const officeAPI = createApi({
         body: office,
       }),
     }),
-    // /*       getOffice: builder.mutation<office, number>({
-    //         query: (id) => ({
-    //           url: `office/${id}`,
-    //           method: 'GET',
-    //         }),
-    //       }), */
     getOffice: builder.query<office, number>({
       query: (id) => ({
         url: `office/${id}`,

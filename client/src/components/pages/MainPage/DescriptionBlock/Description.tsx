@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material'
+import { Container } from '@mui/material'
 import AdvantagesBlock from './AdvantagesBlock'
 import HeaderDescription from './HeaderDecription'
 import OurClients from './OurClients'

@@ -8,7 +8,7 @@ import styles from '../admin.style.module.scss'
 import React from 'react'
 
 type ModalProps = {
-  id: number
+  id: number | undefined
   name: string
   address: string
 }

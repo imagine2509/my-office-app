@@ -10,7 +10,11 @@ import {
 import styles from '../profile.module.scss'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
-import { getBookings } from '../../../../store/reducers/BookingSlice'
+import {
+  deleteBooking,
+  getBookings,
+} from '../../../../store/reducers/BookingSlice'
+import { Booking } from '../../../../models/Bookings'
 
 type parsedDate = {
   date: string
@@ -25,15 +29,26 @@ const Bookings = () => {
   useEffect(() => {
     const getAllBookings = async () => {
       const res = await fetch(
-        `http://localhost:3002/api/userroom//bookings/${userId}`
+        `http://localhost:3002/api/userroom/bookings/${userId}`
       )
       const data = await res.json()
-      console.log(data)
-
       dispatch(getBookings(data))
     }
     getAllBookings()
   }, [userId, dispatch])
+
+  const handleDelete = async (bookingId: number) => {
+    const res = await fetch(
+      `http://localhost:3002/api/userroom/bookings/${bookingId}`,
+      {
+        method: 'DELETE',
+      }
+    )
+    const data: Booking = await res.json()
+    if (res.ok) {
+      dispatch(deleteBooking(data))
+    }
+  }
 
   const parseDates = (date: Date): parsedDate => {
     const parsedDate = new Date(date)
@@ -77,6 +92,7 @@ const Bookings = () => {
                 <Button
                   fullWidth
                   variant='contained'
+                  onClick={() => handleDelete(booking.id)}
                   sx={{ mt: 3 }}
                   type='button'>
                   Отменить

@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -11,16 +10,16 @@ import { CookiesProvider } from 'react-cookie'
 import CheckUser from './components/pages/MainPage/CheckToken.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <CookiesProvider>
-      <Provider store={store}>
-        <ThemeProvider theme={mainTheme}>
-          <StyledEngineProvider injectFirst>
-            <BrowserRouter>
-              <CheckUser />
-              <App />
-            </BrowserRouter>
-          </StyledEngineProvider>
-        </ThemeProvider>
-      </Provider>
-    </CookiesProvider>
+  <CookiesProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={mainTheme}>
+        <StyledEngineProvider injectFirst>
+          <BrowserRouter>
+            <CheckUser />
+            <App />
+          </BrowserRouter>
+        </StyledEngineProvider>
+      </ThemeProvider>
+    </Provider>
+  </CookiesProvider>
 )

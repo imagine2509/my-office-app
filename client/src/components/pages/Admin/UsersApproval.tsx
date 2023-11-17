@@ -23,13 +23,12 @@ function UsersApproval() {
   const [deleteUser, {}] = userAPI.useDeleteUserMutation()
   const [changeUser, {}] = userAPI.useChangeUserMutation()
   const users = userAPI.useGetCompanyUsersQuery(companyId)
-  console.log(users)
 
   const navigate = useNavigate()
 
   const handleApprove =
-    (user: user) => async (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(event.target.checked)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    (user: user) => async (_event: React.ChangeEvent<HTMLInputElement>) => {
       await changeUser({ ...user, isApproved: !user.isApproved })
       await users.refetch()
     }

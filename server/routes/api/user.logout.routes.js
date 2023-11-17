@@ -4,7 +4,6 @@ const { Token, User } = require('../../db/models')
 
 router.post('/logout', async (req, res) => {
   try {
-    console.log(req.cookies);
     const { refreshToken } = req.cookies
     if (!refreshToken) {
       res.status(404).json({

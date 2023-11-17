@@ -31,9 +31,12 @@ function MainContent() {
   const [selectedOffice, setSelectedOffice] = useState<number>(userOfficeId)
 
   const handleChange =
-    (office: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? office : false)
-      setSelectedOffice(office)
+    (office: number | undefined) =>
+    (_event: React.SyntheticEvent, isExpanded: boolean) => {
+      if (office) {
+        setExpanded(isExpanded ? office : false)
+        setSelectedOffice(office)
+      }
     }
 
   return user.isApproved ? (

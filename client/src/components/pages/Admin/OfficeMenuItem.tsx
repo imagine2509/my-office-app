@@ -21,7 +21,7 @@ import { officeAPI } from '../../../hooks/officeService'
 interface Props {
   name: string
   address: string
-  id: number
+  id?: number | undefined
   expanded: number | false
   handleChange: (
     office: number
@@ -33,9 +33,12 @@ function OfficeMenuItem(props: Props) {
   const { name, address, id, expanded, handleChange, selectedOffice } = props
   const [deleteOffice, {}] = officeAPI.useDeleteOfficeMutation()
   const allOffices = officeAPI.useGetAllOfficesQuery(null)
-  const handleDeleteOffice = async (id: number) => {
-    await deleteOffice(id)
-    allOffices.refetch()
+
+  const handleDeleteOffice = async (id: number | undefined) => {
+    if (id) {
+      await deleteOffice(id)
+      allOffices.refetch()
+    }
   }
 
   const dispatch = useAppDispatch()
@@ -45,13 +48,14 @@ function OfficeMenuItem(props: Props) {
 
   const handleOfficeEditClose = () => {
     const action = changeModal({ open: null })
-    console.log('Dispatching action:', action)
     dispatch(action)
   }
 
-  const handleOfficeEditOpen = (id: number) => {
-    const action = changeModal({ open: 'editOffice', id })
-    dispatch(action)
+  const handleOfficeEditOpen = (id: number | undefined) => {
+    if (id) {
+      const action = changeModal({ open: 'editOffice', id })
+      dispatch(action)
+    }
   }
 
   return (

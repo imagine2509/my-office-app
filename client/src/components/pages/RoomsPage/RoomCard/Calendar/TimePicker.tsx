@@ -21,7 +21,6 @@ const TimePickers = () => {
 
     try {
       const data = { startTime, endTime, id, userId }
-      console.log(data)
       const res = await fetch(`http://localhost:3002/api/userroom/${id}`, {
         method: 'POST',
         credentials: 'include',

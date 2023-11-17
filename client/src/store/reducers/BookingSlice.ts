@@ -6,7 +6,7 @@ const initialBookingsState: BookingsState = {
 }
 
 const bookingsSlice = createSlice({
-  name: 'user',
+  name: 'bookings',
   initialState: initialBookingsState,
   reducers: {
     getBookings: (state: BookingsState, action: PayloadAction<Booking[]>) => {
@@ -16,9 +16,12 @@ const bookingsSlice = createSlice({
       state.bookings = [...state.bookings, action.payload]
     },
     deleteBooking: (state: BookingsState, action: PayloadAction<Booking>) => {
-      state.bookings = state.bookings.filter(
-        (booking) => booking.id !== action.payload.id
-      )
+      return {
+        ...state,
+        bookings: state.bookings.filter(
+          (booking) => booking.id !== action.payload.id
+        ),
+      }
     },
     editBooking: (state: BookingsState, action: PayloadAction<Booking>) => {
       state.bookings = state.bookings.map((booking) => {

@@ -1,6 +1,6 @@
 import { Button, Container, Grid, Modal, Typography } from '@mui/material'
 import { useState } from 'react'
-import { room, roomAPI } from '../../../hooks/roomService'
+import { roomAPI } from '../../../hooks/roomService'
 import OfficeMenuItem from './OfficeMenuItem'
 import RoomCard from './RoomCard/RoomCard'
 
@@ -37,9 +37,12 @@ const AdminPage = () => {
   const [selectedOffice, setSelectedOffice] = useState<number>(userOfficeId)
 
   const handleChange =
-    (office: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? office : false)
-      setSelectedOffice(office)
+    (office: number | undefined) =>
+    (_event: React.SyntheticEvent, isExpanded: boolean) => {
+      if (office) {
+        setExpanded(isExpanded ? office : false)
+        setSelectedOffice(office)
+      }
     }
 
   const dispatch = useAppDispatch()

@@ -46,7 +46,7 @@ export default function Register() {
   const [alignment, setAlignment] = React.useState('exist')
 
   const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
+    _event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
     setAlignment(newAlignment)
