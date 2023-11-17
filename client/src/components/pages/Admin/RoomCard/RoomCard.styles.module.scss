@@ -1,0 +1,46 @@
+.roomCard {
+  width: 320px;
+}
+.name {
+  overflow: "hidden";
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  width: 300px;
+}
+.description {
+  overflow: "hidden";
+  height: 80px ;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+}
+.controlButtons {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteButton {
+  margin-bottom: 10px;
+  width: 47%;
+  color: red;
+  border-color: red;
+}
+.editButton {
+  margin-bottom: 10px;
+  width: 47%;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  border: 2px solid #000;
+  padding: 4rem;
+}

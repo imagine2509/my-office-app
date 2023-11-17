@@ -12,7 +12,7 @@ import { useState } from 'react'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import { useNavigate } from 'react-router-dom'
-import { openModal, closeModal } from '../../store/reducers/ModalSlice'
+import { changeModal } from '../../store/reducers/ModalSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 type MenuProps = {
@@ -21,17 +21,17 @@ type MenuProps = {
 
 const NavMenu = ({ burger }: MenuProps) => {
   const dispatch = useAppDispatch()
-  const loginOpen = useAppSelector((state) => state.modals.login)
-  const regOpen = useAppSelector((state) => state.modals.reg)
+  const loginOpen = useAppSelector((state) => state.modals.open === 'login')
+  const regOpen = useAppSelector((state) => state.modals.open === 'reg')
+  const user = useAppSelector((state) => state.users.user)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const navigate = useNavigate()
 
-  const handleLoginOpen = () => dispatch(openModal('login'))
-  const handleLoginClose = () => dispatch(closeModal('login'))
+  const handleLoginOpen = () => dispatch(changeModal({ open: 'login' }))
+  const handleClose = () => dispatch(changeModal({ open: null }))
 
-  const handleRegOpen = () => dispatch(openModal('reg'))
-  const handleRegClose = () => dispatch(closeModal('reg'))
+  const handleRegOpen = () => dispatch(changeModal({ open: 'reg' }))
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -52,7 +52,7 @@ const NavMenu = ({ burger }: MenuProps) => {
     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
       <Modal
         open={loginOpen}
-        onClose={handleLoginClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Login />
@@ -60,7 +60,7 @@ const NavMenu = ({ burger }: MenuProps) => {
 
       <Modal
         open={regOpen}
-        onClose={handleRegClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Register />
@@ -92,23 +92,41 @@ const NavMenu = ({ burger }: MenuProps) => {
         sx={{
           display: { xs: 'block', md: 'none' },
         }}>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography
-            onClick={(event) => handleTabClick(event, '/rooms')}
-            textAlign='center'>
-            Переговорки
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography onClick={handleLoginOpen} textAlign='center'>
-            Войти
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography onClick={handleRegOpen} textAlign='center'>
-            Зарегистрироваться
-          </Typography>
-        </MenuItem>
+        {user.id !== 0 ? (
+          <>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography
+                onClick={(event) => handleTabClick(event, '/rooms')}
+                textAlign='center'>
+                Переговорки
+              </Typography>
+            </MenuItem>
+            {user.isAdmin ? (
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  onClick={(event) => handleTabClick(event, '/admin')}
+                  textAlign='center'>
+                  Администрирование
+                </Typography>
+              </MenuItem>
+            ) : (
+              <></>
+            )}
+          </>
+        ) : (
+          <>
+            <MenuItem key={0} onClick={handleCloseNavMenu}>
+              <Typography onClick={handleLoginOpen} textAlign='center'>
+                Войти
+              </Typography>
+            </MenuItem>
+            <MenuItem key={1} onClick={handleCloseNavMenu}>
+              <Typography onClick={handleRegOpen} textAlign='center'>
+                Зарегистрироваться
+              </Typography>
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </Box>
   ) : (
@@ -119,34 +137,48 @@ const NavMenu = ({ burger }: MenuProps) => {
         justifyContent: 'end',
         mr: 2,
       }}>
-      <Button
-        onClick={(event) => handleTabClick(event, '/rooms')}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Переговорки
-      </Button>
-      <Button
-        onClick={handleLoginOpen}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Войти
-      </Button>
-      <Modal
-        open={loginOpen}
-        onClose={handleLoginClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'>
-        <Login />
-      </Modal>
-      <Button
-        onClick={handleRegOpen}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-        Регистрация
-      </Button>
+      {user.id !== 0 ? (
+        <>
+          <Button
+            onClick={(event) => handleTabClick(event, '/rooms')}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Переговорки
+          </Button>
+          {user.isAdmin && (
+            <Button
+              onClick={(event) => handleTabClick(event, '/admin')}
+              sx={{ my: 2, color: 'white', display: 'block' }}>
+              Администрирование
+            </Button>
+          )}
+        </>
+      ) : (
+        <>
+          <Button
+            onClick={handleLoginOpen}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Войти
+          </Button>
+          <Button
+            onClick={handleRegOpen}
+            sx={{ my: 2, color: 'white', display: 'block' }}>
+            Регистрация
+          </Button>
+        </>
+      )}
       <Modal
         open={regOpen}
-        onClose={handleRegClose}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Register />
+      </Modal>
+      <Modal
+        open={loginOpen}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Login />
       </Modal>
     </Box>
   )

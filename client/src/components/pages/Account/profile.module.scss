@@ -4,35 +4,52 @@
 
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+
+  .profileLeftContainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .contactContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .contactBox {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .contactText {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      .editProfileButton {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+    }
+
+    .avatar {
+      transform: translateX(100%);
+    }
+
+    .birthDayContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 }
-.contactContainer {
-  padding: 7px;
-  display: flex;
-  flex-direction: column;
-  justify-content: top;
-  text-align: center;
-}
-.contactBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-.avatarBox {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.contactText {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
+
 .modal {
   position: absolute;
   display: flex;

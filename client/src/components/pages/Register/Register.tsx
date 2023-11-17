@@ -7,24 +7,32 @@ import {
   Grid,
   Box,
   Typography,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material'
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import styles from './styles.module.scss'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../store/reducers/ModalSlice'
 import { useAppDispatch } from '../../../hooks/redux'
 
 export default function Register() {
   const dispatch = useAppDispatch()
   const handleRegClose = () =>
-    setTimeout(() => dispatch(closeModal('reg')), 1000)
-  const handleLoginOpen = () => dispatch(openModal('login'))
+    setTimeout(() => dispatch(changeModal({ open: null })), 1000)
+  const handleLoginOpen = () => dispatch(changeModal({ open: 'login' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
+    data.isAdminValue = alignment
+    if (alignment === 'new') {
+      data.isApprovedValue = 'true'
+    }
+    console.log(data)
+
     const res = await fetch('http://localhost:3002/api/user/register', {
       method: 'POST',
       headers: {
@@ -33,6 +41,15 @@ export default function Register() {
       body: JSON.stringify(data),
     })
     await res.json()
+  }
+
+  const [alignment, setAlignment] = React.useState('exist')
+
+  const handleChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
+    setAlignment(newAlignment)
   }
 
   return (
@@ -49,8 +66,9 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               id='email'
-              label='Email Address'
+              label='Эл. почта'
               name='email'
               autoComplete='email'
             />
@@ -59,11 +77,53 @@ export default function Register() {
             <TextField
               required
               fullWidth
+              className={styles.input}
               name='password'
-              label='Password'
+              label='Пароль'
               type='password'
               id='password'
               autoComplete='new-password'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              className={styles.input}
+              name='firstName'
+              label='Имя'
+              id='firstName'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              className={styles.input}
+              name='lastName'
+              label='Фамилия'
+              id='lastName'
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <ToggleButtonGroup
+              color='primary'
+              value={alignment}
+              exclusive
+              onChange={handleChange}
+              aria-label='Platform'>
+              <ToggleButton value='exist'>работник компании</ToggleButton>
+              <ToggleButton value='new'>создатель компании</ToggleButton>
+            </ToggleButtonGroup>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              className={styles.input}
+              name='company'
+              label='Наименование компании'
+              id='company'
             />
           </Grid>
         </Grid>
@@ -80,7 +140,6 @@ export default function Register() {
             <Link
               className={styles.link}
               onClick={() => {
-                handleRegClose()
                 handleLoginOpen()
               }}
               variant='body2'>

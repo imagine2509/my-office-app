@@ -6,47 +6,58 @@ import {
   Modal,
   Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
+
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
+import { changeModal } from '../../../../store/reducers/ModalSlice'
+import { officeAPI } from '../../../../hooks/officeService'
+import EditForm from './EditForm'
 
 import styles from '../profile.module.scss'
-import EditForm from './EditForm'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux'
-import { closeModal, openModal } from '../../../../store/reducers/ModalSlice'
 
-type Props = {
-  id: number
-  firstName: string
-  lastName: string
-  email: string
-  officeId: number | null
-  companyId: number | null
-}
-
-function Personal(props: Props) {
-  const { id, firstName, lastName, email, officeId, companyId } = props
+function Personal() {
   const dispatch = useAppDispatch()
-  const editOpen = useAppSelector((state) => state.modals.edit)
-  const handleEditOpen = () => dispatch(openModal('edit'))
-  const handleEditClose = () => dispatch(closeModal('edit'))
+  const editOpen = useAppSelector((state) => state.modals.open === 'edit')
+  const handleEditOpen = () => dispatch(changeModal({ open: 'edit' }))
+  const handleEditClose = () => dispatch(changeModal({ open: null }))
+
+  const user = useAppSelector((state) => state.users.user)
+
+  const officeName = officeAPI.useGetOfficeQuery(user.officeId)
 
   return (
     <Container className={styles.contactContainer}>
       <Box className={styles.avatarBox}>
-        <Avatar alt={firstName + lastName} src='/static/images/avatar/2.jpg' />
+        <Avatar
+          alt={user.firstName + user.lastName}
+          src='/static/images/avatar/2.jpg'
+          className={styles.avatar}
+        />
         <Typography className={styles.contactText}>
-          {firstName + ' ' + lastName}
+          {user.firstName + ' ' + user.lastName}
         </Typography>
       </Box>
       <Box className={styles.contactBox}>
-        <Typography className={styles.contactText}>Офис: {officeId}</Typography>
-        <Typography className={styles.contactText}>Контакты:</Typography>
-        <Typography className={styles.contactText}>E-mail: {email}</Typography>
+        <Typography className={styles.contactText}>
+          {officeName.isLoading ? (
+            <Typography className={styles.contactText}>Загрузка...</Typography>
+          ) : officeName.isError ? (
+            <Typography className={styles.contactText}>
+              Ошибка при загрузке
+            </Typography>
+          ) : (
+            <Typography className={styles.contactText}>
+              Офис: {officeName.data?.name}
+            </Typography>
+          )}
+        </Typography>
+        <Typography className={styles.contactText}>
+          E-mail: {user.email}
+        </Typography>
         <Button
           type='button'
           onClick={handleEditOpen}
-          fullWidth
           variant='contained'
-          sx={{ mt: 3, mb: 2 }}>
+          className={styles.editProfileButton}>
           Изменить
         </Button>
         <Modal
@@ -54,7 +65,7 @@ function Personal(props: Props) {
           onClose={handleEditClose}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'>
-          <EditForm />
+          <EditForm user={user} />
         </Modal>
       </Box>
     </Container>

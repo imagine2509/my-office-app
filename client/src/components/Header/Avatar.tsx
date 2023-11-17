@@ -9,12 +9,16 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../hooks/redux'
+import { LogoutUser, initialUserState } from '../../store/reducers/UserSlice'
 
 const AvatarMenu = () => {
   const settings = [
     { name: 'Профиль', link: '/profile' },
-    { name: 'Выйти', link: '/logout' },
+    { name: 'Выйти', link: '/' },
   ]
+
+  const dispath = useAppDispatch()
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -34,6 +38,18 @@ const AvatarMenu = () => {
   ) => {
     event.preventDefault()
     navigate(newValue)
+  }
+
+  const handleLogout = async () => {
+    const res = await fetch('http://localhost:3002/api/user/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+    if (res.ok) {
+      localStorage.clear()
+      dispath(LogoutUser(initialUserState.user))
+      navigate('/')
+    }
   }
 
   return (
@@ -61,7 +77,12 @@ const AvatarMenu = () => {
         {settings.map((setting) => (
           <MenuItem key={setting.link} onClick={handleCloseUserMenu}>
             <Typography
-              onClick={(event) => handleTabClick(event, `${setting.link}`)}
+              key={setting.name}
+              onClick={(event) => {
+                event.currentTarget.textContent === 'Выйти'
+                  ? handleLogout()
+                  : handleTabClick(event, `${setting.link}`)
+              }}
               textAlign='center'>
               {setting.name}
             </Typography>

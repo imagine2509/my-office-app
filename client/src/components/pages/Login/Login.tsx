@@ -11,30 +11,48 @@ import {
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material'
 import styles from './styles.module.scss'
 import { useAppDispatch } from '../../../hooks/redux'
-import { closeModal, openModal } from '../../../store/reducers/ModalSlice'
+import { changeModal } from '../../../store/reducers/ModalSlice'
+import { setUser } from '../../../store/reducers/UserSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
+
   const handleLoginClose = () =>
-    setTimeout(() => dispatch(closeModal('login'), 1000))
-  const handleRegOpen = () => dispatch(openModal('reg'))
+    setTimeout(() => dispatch(changeModal({ open: null })), 100)
+  const handleRegOpen = () => dispatch(changeModal({ open: 'reg' }))
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log(data)
 
-    const res = await fetch('http://localhost:3002/api/user/login', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    await res.json()
+    try {
+      const res = await fetch('http://localhost:3002/api/user/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      const userData = await res.json()
+      localStorage.setItem('id', `${userData.id}`)
+      localStorage.setItem('refreshToken', `${userData.refreshToken}`)
+      localStorage.setItem('accessToken', `${userData.accessToken}`)
+      localStorage.setItem('firstName', `${userData.firstName}`)
+      localStorage.setItem('lastName', `${userData.lastName}`)
+      localStorage.setItem('email', `${userData.email}`)
+      localStorage.setItem('officeId', `${userData.officeId}`)
+      localStorage.setItem('companyId', `${userData.companyId}`)
+      localStorage.setItem('isAdmin', `${userData.isAdmin}`)
+      localStorage.setItem('isActivated', `${userData.isActivated}`)
+      localStorage.setItem('isApproved', `${userData.isApproved}`)
+
+      dispatch(setUser(userData))
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -50,6 +68,7 @@ export default function Login() {
           margin='normal'
           required
           fullWidth
+          className={styles.input}
           id='email'
           label='Email Address'
           name='email'
@@ -60,6 +79,7 @@ export default function Login() {
           margin='normal'
           required
           fullWidth
+          className={styles.input}
           name='password'
           label='Password'
           type='password'

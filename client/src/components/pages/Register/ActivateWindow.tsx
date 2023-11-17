@@ -1,24 +1,20 @@
-import { Button, Container, Typography } from '@mui/material'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const ActivateWindow = () => {
-  const activation = async () => {
-    const data = window.location.href
-    const res = data.replace('5173', '3002')
-    console.log(data)
+  const navigate = useNavigate()
 
-    const resData = await fetch(`${res}`)
-    console.log(resData)
-  }
-  return (
-    <>
-      <Container>
-        <Typography>Нажми на кнопку, чтобы активировать аккаунт</Typography>
-        <Button type='button' onClick={() => activation()}>
-          Нажми сюда
-        </Button>
-      </Container>
-    </>
-  )
+  useEffect(() => {
+    const activation = async () => {
+      const data = window.location.href
+      const res = data.replace('5173', '3002')
+      await fetch(`${res}`)
+    }
+    activation()
+    navigate('/')
+  })
+
+  return <></>
 }
 
 export default ActivateWindow

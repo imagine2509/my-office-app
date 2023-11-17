@@ -1,8 +1,23 @@
 .mainContent {
-  margin: 4rem;
+  padding: 4rem;
+  padding-top: 1rem;
 }
 
 .officeMenu {
-  min-width:320px;
-  max-width:320px;
+  min-width: 320px;
+  max-width: 320px;
+}
+
+.allRoomsContainer {
+  margin-top: 1.9rem;
+}
+
+.roomContainer {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  justify-content: center;
+  align-items: baseline;
 }

@@ -1,32 +1,51 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../models/User";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { User } from '../../models/User'
 
 export type UserState = {
-    user: User
-    isLoading: boolean
-    error: string | null
+  user: User
 }
 
-const initialState: UserState = {
-    user: {
-        id: 0,
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        officeId: 0,
-        companyId: 0,
-        isAdmin: false
+export const initialUserState: UserState = {
+  user: {
+    id: 0,
+    firstName: 'Adam',
+    lastName: 'Jenkins',
+    email: 'test@gmail.com',
+    password: '1',
+    officeId: 0,
+    companyId: 0,
+    isAdmin: false,
+    isActivated: false,
+    isApproved: false,
+  },
+}
+const userSlice = createSlice({
+  name: 'user',
+  initialState: initialUserState,
+  reducers: {
+    checkUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
-    isLoading: false,
-    error: null
-}
-
-export const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-    }
+    setUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
+    },
+    LogoutUser: (state: UserState, action: PayloadAction<User>) => {
+      state.user = action.payload
+    },
+    editUser: (
+      state: UserState,
+      action: PayloadAction<
+        Pick<User, 'email' | 'firstName' | 'lastName' | 'officeId'>
+      >
+    ) => {
+      state.user.email = action.payload.email
+      state.user.firstName = action.payload.firstName
+      state.user.lastName = action.payload.lastName
+      state.user.officeId = action.payload.officeId
+    },
+  },
 })
+
+export const { checkUser, setUser, LogoutUser, editUser } = userSlice.actions
 
 export default userSlice.reducer

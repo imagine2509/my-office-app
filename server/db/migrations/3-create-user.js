@@ -1,4 +1,6 @@
-'use strict'
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -49,6 +51,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
       },
       isActivated: {
+        type: Sequelize.BOOLEAN,
+      },
+      isApproved: {
         type: Sequelize.BOOLEAN,
       },
       createdAt: {

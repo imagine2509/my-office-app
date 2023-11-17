@@ -1,24 +1,25 @@
-import { Container } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import styles from '../profile.module.scss'
 import Personal from '../Personal/Personal'
 import Bookings from '../Bookings/Bookings'
-
-const props = {
-  id: 1,
-  firstName: 'Vasya',
-  lastName: 'Pupkin',
-  email: 'seva@123.com',
-  officeId: 1,
-  companyId: 1,
-}
+import Birthday from '../Personal/Birthday'
 
 const ProfileContainer = () => {
   return (
-    <Container className={styles.profileContainer}>
-      <Personal {...props} />
-      <Bookings />
-    </Container>
+    <Grid container className={styles.profileContainer}>
+      <Grid item container className={styles.profileLeftContainer}>
+        <Grid item>
+          <Personal />
+        </Grid>
+        <Grid item>
+          <Birthday />
+        </Grid>
+      </Grid>
+      <Grid item>
+        <Bookings />
+      </Grid>
+    </Grid>
   )
 }
 

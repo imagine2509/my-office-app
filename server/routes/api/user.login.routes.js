@@ -10,14 +10,14 @@ router.post('/login', async (req, res) => {
     const userExists = await User.findOne({ where: { email } })
     if (!userExists) {
       res.status(404).json({
-        //404 Not found
-        message: `Пользователь не найден`,
+        // 404 Not found
+        message: 'Пользователь не найден',
       })
       return
     }
     if (!userExists.isActivated) {
       res.status(403).json({
-        //403 Unauthorized/Inactive
+        // 403 Unauthorized/Inactive
         message: `Активация по ссылке из письма для email = ${email} не произведена`,
       })
       return
@@ -25,8 +25,8 @@ router.post('/login', async (req, res) => {
     const checkPassword = await bcrypt.compare(password, userExists.password)
     if (!checkPassword) {
       res.status(401).json({
-        //401 Unauthorized
-        message: `Неверный пароль`,
+        // 401 Unauthorized
+        message: 'Неверный пароль',
       })
       return
     }
@@ -52,15 +52,22 @@ router.post('/login', async (req, res) => {
         refreshToken,
       })
     }
-    console.log(refreshToken, '<--- это в куку')
     res.cookie('refreshToken', refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
+      secure: true,
+      sameSite: 'None',
     })
     res.status(200).json({
       id: userExists.id,
+      firstName: userExists.firstName,
+      lastName: userExists.lastName,
       email,
+      officeId: userExists.officeId,
+      companyId: userExists.companyId,
       isActivated: userExists.isActivated,
+      isAdmin: userExists.isAdmin,
+      isApproved: userExists.isApproved,
       refreshToken,
       accessToken,
       message: `Успешный вход пользователя с email = ${email}`,
