@@ -7,6 +7,7 @@ import MainContent from './components/pages/RoomsPage/MainContent'
 import ActivateWindow from './components/pages/Register/ActivateWindow'
 import AdminPage from './components/pages/Admin/AdminPage'
 import CalendarPage from './components/pages/RoomsPage/RoomCard/Calendar/CalendarPage'
+import UsersApproval from './components/pages/Admin/UsersApproval'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path='api/user/activate/:link'
           element={<ActivateWindow />}></Route>
         <Route path='/admin' element={<AdminPage />}></Route>
+        <Route path='/admin/users' element={<UsersApproval />}></Route>
       </Routes>
     </>
   )

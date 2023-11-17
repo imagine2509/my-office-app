@@ -11,8 +11,11 @@ import ErrorComponent from '../../Error'
 import { changeModal } from '../../../store/reducers/ModalSlice'
 import CreateOffice from './CreateModals/CreateOffice'
 import CreateRoom from './CreateModals/CreateRoom'
+import UsersApproval from './UsersApproval'
+import { useNavigate } from 'react-router-dom'
 
 const AdminPage = () => {
+  const navigate = useNavigate()
   const userOfficeId =
     localStorage.getItem('officeId') != null
       ? Number(localStorage.getItem('officeId'))
@@ -96,6 +99,15 @@ const AdminPage = () => {
             variant='outlined'
             onClick={handleOfficeCreateOpen}>
             Создать офис
+          </Button>
+          <Button
+              type='button'
+              variant='outlined'
+              onClick={(event) => {
+                event.preventDefault()
+                  navigate('/admin/users')
+              }}>
+              Управление Пользователями
           </Button>
         </Grid>
         <Grid item>

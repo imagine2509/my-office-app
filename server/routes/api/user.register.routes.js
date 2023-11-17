@@ -84,6 +84,7 @@ router.post(
         isAdmin,
         companyId: userCompanyid,
         activationString,
+        isApproved: isAdmin,
       });
       sendEmail(
         email,

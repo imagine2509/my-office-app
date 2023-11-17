@@ -21,6 +21,7 @@ const getAllRoute = require('./routes/api/user.getAll.routes');
 const birthRouter = require('./routes/views/birth.routes');
 const officeRouter = require('./routes/api/office.routes');
 const roomRouter = require('./routes/api/room.routes');
+const modifyUser = require('./routes/api/user.modify.routes');
 const errorHandler = require('./middleware/errorHandler');
 
 // инициализация приложения 'app'
@@ -47,7 +48,8 @@ app.use('/api/user/', logoutRoute);
 app.use('/api/user/', registerRoute);
 app.use('/api/user/', refreshRoute);
 app.use('/api/user/', validateAccess);
-app.use('/api/user/', getAllRoute);
+app.use('/api/user/', modifyUser);
+//app.use('/api/user/', getAllRoute);
 app.use('/api', officeRouter);
 app.use('/api/room/', roomRouter);
 app.use('/birth', birthRouter);
