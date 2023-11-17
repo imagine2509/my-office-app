@@ -38,6 +38,17 @@ router
       .then((allUserRoom) => res.json(allUserRoom))
       .catch((error) => res.status(500).json({ error: error.message }))
   })
+  .delete(async (req, res) => {
+    try {
+      const { roomId } = req.params
+      const response = await UserRoom.destroy({ where: { id: roomId } })
+      if (response) {
+        res.sendStatus(200)
+      }
+    } catch ({ message }) {
+      res.status(500).json({ message })
+    }
+  })
 
 router.route('/bookings/:userId').get((req, res) => {
   const { userId } = req.params
