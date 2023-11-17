@@ -34,10 +34,16 @@ router
   })
   .get((req, res) => {
     const { roomId } = req.params
-    console.log(roomId)
     UserRoom.findAll({ where: { roomId }, raw: true })
       .then((allUserRoom) => res.json(allUserRoom))
       .catch((error) => res.status(500).json({ error: error.message }))
   })
+
+router.route('/bookings/:userId').get((req, res) => {
+  const { userId } = req.params
+  UserRoom.findAll({ where: { userId }, raw: true })
+    .then((allUserRoom) => res.json(allUserRoom))
+    .catch((error) => res.status(500).json({ error: error.message }))
+})
 
 module.exports = router

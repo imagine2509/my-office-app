@@ -1,4 +1,3 @@
-import Birthday from '../Account/Personal/Birthday'
 import Description from './DescriptionBlock/Description'
 import TopPaper from './TopPaper'
 
@@ -7,7 +6,6 @@ const Main = () => {
     <>
       <TopPaper />
       <Description />
-      <Birthday />
     </>
   )
 }

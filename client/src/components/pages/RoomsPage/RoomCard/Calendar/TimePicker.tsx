@@ -1,11 +1,11 @@
 import { Box, Button } from '@mui/material'
-import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { TimePicker } from '@mui/x-date-pickers'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux'
 import { addBooking } from '../../../../../store/reducers/BookingSlice'
+
+import styles from './calendar.styles.module.scss'
 
 const TimePickers = () => {
   const [startTime, setStartTime] = useState()
@@ -41,21 +41,21 @@ const TimePickers = () => {
 
   return (
     <>
-      <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['TimePicker', 'TimePicker']}>
-            <TimePicker
-              ampm={false}
-              label='Start Time'
-              onAccept={(value) => setStartTime(value.$d)}
-            />
-            <TimePicker
-              ampm={false}
-              label='End Time'
-              onAccept={(value) => setEndTime(value.$d)}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        noValidate
+        className={styles.timePickersContainer}>
+        <TimePicker
+          ampm={false}
+          label='Start Time'
+          onAccept={(value) => setStartTime(value.$d)}
+        />
+        <TimePicker
+          ampm={false}
+          label='End Time'
+          onAccept={(value) => setEndTime(value.$d)}
+        />
         <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
           Забронировать
         </Button>

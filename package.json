@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.153",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.10",
+    "dayjs-ext": "^2.2.0"
+  }
+}

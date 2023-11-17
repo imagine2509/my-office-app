@@ -1,4 +1,7 @@
 .calendarPageContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
   margin-top: 20px;
   height: 80vh;
 }
@@ -6,4 +9,9 @@
 .calendarContainer {
   width: 50vw;
   height: 50vh;
+}
+
+.timePickersContainer {
+  display: flex;
+  flex-direction: column;
 }

@@ -9,7 +9,11 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Typography,
+  Container,
 } from '@mui/material'
+
+import styles from '../profile.module.scss'
 
 type DatesOfBirth = {
   firstName: string
@@ -51,28 +55,33 @@ const Birthday = (): JSX.Element => {
   })
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label='Дни рождения коллег'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Имя</TableCell>
-            <TableCell align='right'>День рождения</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component='th' scope='row'>
-                {row.name}
-              </TableCell>
-              <TableCell align='right'>{row.birthDate}</TableCell>
+    <Container className={styles.birthDayContainer}>
+      <Typography component={'h3'} variant='h5'>
+        Дни рождения коллег:
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table aria-label='Дни рождения коллег'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Имя</TableCell>
+              <TableCell align='right'>День рождения</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component='th' scope='row'>
+                  {row.name}
+                </TableCell>
+                <TableCell align='right'>{row.birthDate}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   )
 }
 

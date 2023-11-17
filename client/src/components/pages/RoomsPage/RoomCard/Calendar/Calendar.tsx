@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
-import moment from 'moment'
-
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-
-import styles from '../RoomCard.styles.module.scss'
 import { useParams } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux'
+import { useAppDispatch } from '../../../../../hooks/redux'
 import { getBookings } from '../../../../../store/reducers/BookingSlice'
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar'
 
-const localizer = momentLocalizer(moment)
+import dayjs, { Dayjs } from 'dayjs'
 
 const CalendarComponent = () => {
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [value, setValue] = useState<Dayjs | null>(dayjs())
   const { id } = useParams()
   const dispatch = useAppDispatch()
-  const bookings = useAppSelector((state) => state.bookings.bookings)
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -22,25 +17,14 @@ const CalendarComponent = () => {
         `http://localhost:3002/api/userroom/${id}`
       )
       const res = await allBookings.json()
-      console.log(typeof res.startTime)
-
       dispatch(getBookings(res))
     }
     fetchBookings()
-  }, [])
+  }, [value, dispatch, id])
 
   return (
     <>
-      <Calendar
-        date={currentDate}
-        onNavigate={setCurrentDate}
-        localizer={localizer}
-        defaultDate={new Date()}
-        events={bookings}
-        startAccessor='startTime'
-        endAccessor='endTime'
-        className={styles.calendarContainer}
-      />
+      <DateCalendar value={value} onChange={(newValue) => setValue(newValue)} />
     </>
   )
 }

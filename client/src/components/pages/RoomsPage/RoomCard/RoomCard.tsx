@@ -13,7 +13,6 @@ import {
 import DuoIcon from '@mui/icons-material/Duo'
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
 import styles from './RoomCard.styles.module.scss'
-import { roomAPI } from '../../../../hooks/roomService'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {

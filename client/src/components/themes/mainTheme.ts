@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles'
 
 export const mainTheme = createTheme({
   palette: {
@@ -10,4 +10,4 @@ export const mainTheme = createTheme({
       main: '#f50057',
     },
   },
-});
+})
