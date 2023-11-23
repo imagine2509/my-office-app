@@ -6,9 +6,7 @@ type Client = {
   name: string
 }
 
-const clients: Client[] = [
-  { logo: '/img/elbrus-logo.png', name: 'Elbrus Bootcamp' },
-]
+const clients: Client[] = [{ logo: '/img/google_logo.png', name: 'Google' }]
 
 const OurClients = () => {
   return (
