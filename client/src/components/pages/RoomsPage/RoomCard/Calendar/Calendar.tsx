@@ -7,13 +7,14 @@ import dayjs from 'dayjs'
 import { setDate } from '../../../../../store/reducers/DateSlice'
 
 type ValueProps = {
-  $d: any
+  $d: dayjs.Dayjs
 }
 
 const CalendarComponent = () => {
-  const [value, setValue] = useState<ValueProps | dayjs.Dayjs | any>({
-    $d: dayjs(new Date()),
-  })
+  const [value, setValue] = useState<ValueProps | dayjs.Dayjs | any>(
+    dayjs(new Date())
+  )
+
   const { id } = useParams()
   const dispatch = useAppDispatch()
 
